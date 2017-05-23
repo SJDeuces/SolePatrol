@@ -36,20 +36,42 @@
         <link href="css/stupid.css" rel="stylesheet" type="text/css"/>
         <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-        <title>Cordova Starter App, CMPS 121</title>
+        <title>Sole Patrol</title>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/vue.js"></script>
-        <script type="text/javascript" src="js/randomString.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </head>
     <body>
 
     <div id="vue-div" class="app" style="display:none">
 
-        <h1>Hello class!</h1>
-        <p>It seems that this minimal app is working.</p>
+        <button id="post" v-on:click="postphoto"  > Get Photo
+        </button>
+        <img id="imageFile" src="nophoto.jpg" style="width:304px;height:228px;"/>
 
-    </div>
+        <h1 class="center"> Select shoe name: </h1>
+
+
+        <select name='menu' class="myDropDown">
+            <option value='1'></option>
+            <option value='2'>Adidas Yeezy 350 Beluga</option>
+            <option value='3'>third item</option>
+            <option value='4'>fourth item</option>
+            <option value='5'>fifth item</option>
+            <option value='6'>fifth item</option>
+            <option value='7'>fifth item</option>
+            <option value='8'>Nike Air Jordan Banned 1</option>
+            <option value='9'>fifth item</option>
+            <option value='10'>fifth item</option>
+            <option value='11'>fifth item</option>
+            <option value='12'>fifth item</option>
+            <option value='13'>fifth item</option>
+            <option value='14'>fifth item</option>
+            <option value='15'>fifth item</option>
+        </select>
+
+
+
     <script type="text/javascript" src="cordova.js"></script>
     </body>
 </html>

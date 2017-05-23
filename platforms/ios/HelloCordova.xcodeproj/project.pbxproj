@@ -16,6 +16,20 @@
 		3047A5131AB8059700498E2A /* build-release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5101AB8059700498E2A /* build-release.xcconfig */; };
 		3047A5141AB8059700498E2A /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5111AB8059700498E2A /* build.xcconfig */; };
 		6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */; };
+		4ABE2C34308F400A99778A79 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3F7BFAB6FF478FABA9BE70 /* CDVFile.m */; };
+		14E50F1CECBC44049BF1D64C /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F1C3407102DF41E3A8DE469D /* CDVLocalFilesystem.m */; };
+		6F51B8E1181A4215B83CB4D8 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B8452B67346988F6D5ED4 /* CDVAssetLibraryFilesystem.m */; };
+		F51FE9933DD34F1C8489AEA2 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A555B015E104BF488275235 /* PhotoLibrary.swift */; };
+		D35D896CBFA74E73AC534B73 /* PhotoLibraryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C4B1DF2E447338CE93A02 /* PhotoLibraryProtocol.swift */; };
+		A34070918B894F6C8EEC648D /* PhotoLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B73579F2EA4286AF8ED325 /* PhotoLibraryService.swift */; };
+		4C98A0057F9B43BFA10C7793 /* PhotoLibraryGetLibraryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75F44FD5478448A80FA9172 /* PhotoLibraryGetLibraryOptions.swift */; };
+		5EC17F1EFE4343EBA6FA27A7 /* UIImage+CropScaleOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = DE21BB6ADE024C579FA0D30E /* UIImage+CropScaleOrientation.m */; };
+		DB726AC06DC24A1F90458074 /* CDVCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D60BCE4D234974A166950F /* CDVCamera.m */; };
+		8F8E166C3C9542358FE907F2 /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B63E61F83634EB09D6CED58 /* CDVJpegHeaderWriter.m */; };
+		D190F0165FF240B2A5807919 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99A7984EABD4C73B096CA52 /* ImageIO.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		29107A0B6DE64032A1A2EC7B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD55EC1DE14C73B51D8728 /* CoreLocation.framework */; };
+		54F3AED5D4994F76A6BF1BDF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2251637F62374CFB8B2162A6 /* AVFoundation.framework */; };
+		10E7E94707844F398530C4EE /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE629C989C444D4BDBB38EA /* CDVLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +70,28 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "HelloCordova/config.xml"; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		BB3F7BFAB6FF478FABA9BE70 /* CDVFile.m */ = {isa = PBXFileReference; name = "CDVFile.m"; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		F1C3407102DF41E3A8DE469D /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.m"; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		3B6B8452B67346988F6D5ED4 /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.m"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		DCE9D2CD25E549CD9AB6E679 /* CDVFile.h */ = {isa = PBXFileReference; name = "CDVFile.h"; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		5F319182740D45DB947828B3 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.h"; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		D009A19FCA544AE2A4F11705 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		7A555B015E104BF488275235 /* PhotoLibrary.swift */ = {isa = PBXFileReference; name = "PhotoLibrary.swift"; path = "cordova-plugin-photo-library/PhotoLibrary.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		651C4B1DF2E447338CE93A02 /* PhotoLibraryProtocol.swift */ = {isa = PBXFileReference; name = "PhotoLibraryProtocol.swift"; path = "cordova-plugin-photo-library/PhotoLibraryProtocol.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		33B73579F2EA4286AF8ED325 /* PhotoLibraryService.swift */ = {isa = PBXFileReference; name = "PhotoLibraryService.swift"; path = "cordova-plugin-photo-library/PhotoLibraryService.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		E75F44FD5478448A80FA9172 /* PhotoLibraryGetLibraryOptions.swift */ = {isa = PBXFileReference; name = "PhotoLibraryGetLibraryOptions.swift"; path = "cordova-plugin-photo-library/PhotoLibraryGetLibraryOptions.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		DE21BB6ADE024C579FA0D30E /* UIImage+CropScaleOrientation.m */ = {isa = PBXFileReference; name = "UIImage+CropScaleOrientation.m"; path = "cordova-plugin-camera/UIImage+CropScaleOrientation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		78D60BCE4D234974A166950F /* CDVCamera.m */ = {isa = PBXFileReference; name = "CDVCamera.m"; path = "cordova-plugin-camera/CDVCamera.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		6B63E61F83634EB09D6CED58 /* CDVJpegHeaderWriter.m */ = {isa = PBXFileReference; name = "CDVJpegHeaderWriter.m"; path = "cordova-plugin-camera/CDVJpegHeaderWriter.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		246D571888B1474AA71101A5 /* UIImage+CropScaleOrientation.h */ = {isa = PBXFileReference; name = "UIImage+CropScaleOrientation.h"; path = "cordova-plugin-camera/UIImage+CropScaleOrientation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		CB3BC0DF008D4F6A81F13189 /* CDVCamera.h */ = {isa = PBXFileReference; name = "CDVCamera.h"; path = "cordova-plugin-camera/CDVCamera.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		1E2A186205C24B479BCCDDAA /* CDVJpegHeaderWriter.h */ = {isa = PBXFileReference; name = "CDVJpegHeaderWriter.h"; path = "cordova-plugin-camera/CDVJpegHeaderWriter.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		93DB144EF20746DFB858736A /* CDVExif.h */ = {isa = PBXFileReference; name = "CDVExif.h"; path = "cordova-plugin-camera/CDVExif.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		C99A7984EABD4C73B096CA52 /* ImageIO.framework */ = {isa = PBXFileReference; name = "ImageIO.framework"; path = "System/Library/Frameworks/ImageIO.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		3DAD55EC1DE14C73B51D8728 /* CoreLocation.framework */ = {isa = PBXFileReference; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		2251637F62374CFB8B2162A6 /* AVFoundation.framework */ = {isa = PBXFileReference; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		9FE629C989C444D4BDBB38EA /* CDVLogger.m */ = {isa = PBXFileReference; name = "CDVLogger.m"; path = "cordova-plugin-console/CDVLogger.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		922A8897286C428CB38D9F63 /* CDVLogger.h */ = {isa = PBXFileReference; name = "CDVLogger.h"; path = "cordova-plugin-console/CDVLogger.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +100,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
+				D190F0165FF240B2A5807919 /* ImageIO.framework in Frameworks */,
+				29107A0B6DE64032A1A2EC7B /* CoreLocation.framework in Frameworks */,
+				54F3AED5D4994F76A6BF1BDF /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +173,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C99A7984EABD4C73B096CA52 /* ImageIO.framework */,
+				3DAD55EC1DE14C73B51D8728 /* CoreLocation.framework */,
+				2251637F62374CFB8B2162A6 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,6 +201,25 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				BB3F7BFAB6FF478FABA9BE70 /* CDVFile.m */,
+				F1C3407102DF41E3A8DE469D /* CDVLocalFilesystem.m */,
+				3B6B8452B67346988F6D5ED4 /* CDVAssetLibraryFilesystem.m */,
+				DCE9D2CD25E549CD9AB6E679 /* CDVFile.h */,
+				5F319182740D45DB947828B3 /* CDVLocalFilesystem.h */,
+				D009A19FCA544AE2A4F11705 /* CDVAssetLibraryFilesystem.h */,
+				7A555B015E104BF488275235 /* PhotoLibrary.swift */,
+				651C4B1DF2E447338CE93A02 /* PhotoLibraryProtocol.swift */,
+				33B73579F2EA4286AF8ED325 /* PhotoLibraryService.swift */,
+				E75F44FD5478448A80FA9172 /* PhotoLibraryGetLibraryOptions.swift */,
+				DE21BB6ADE024C579FA0D30E /* UIImage+CropScaleOrientation.m */,
+				78D60BCE4D234974A166950F /* CDVCamera.m */,
+				6B63E61F83634EB09D6CED58 /* CDVJpegHeaderWriter.m */,
+				246D571888B1474AA71101A5 /* UIImage+CropScaleOrientation.h */,
+				CB3BC0DF008D4F6A81F13189 /* CDVCamera.h */,
+				1E2A186205C24B479BCCDDAA /* CDVJpegHeaderWriter.h */,
+				93DB144EF20746DFB858736A /* CDVExif.h */,
+				9FE629C989C444D4BDBB38EA /* CDVLogger.m */,
+				922A8897286C428CB38D9F63 /* CDVLogger.h */,
 			);
 			name = Plugins;
 			path = "HelloCordova/Plugins";
@@ -271,6 +332,17 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
+				4ABE2C34308F400A99778A79 /* CDVFile.m in Sources */,
+				14E50F1CECBC44049BF1D64C /* CDVLocalFilesystem.m in Sources */,
+				6F51B8E1181A4215B83CB4D8 /* CDVAssetLibraryFilesystem.m in Sources */,
+				F51FE9933DD34F1C8489AEA2 /* PhotoLibrary.swift in Sources */,
+				D35D896CBFA74E73AC534B73 /* PhotoLibraryProtocol.swift in Sources */,
+				A34070918B894F6C8EEC648D /* PhotoLibraryService.swift in Sources */,
+				4C98A0057F9B43BFA10C7793 /* PhotoLibraryGetLibraryOptions.swift in Sources */,
+				5EC17F1EFE4343EBA6FA27A7 /* UIImage+CropScaleOrientation.m in Sources */,
+				DB726AC06DC24A1F90458074 /* CDVCamera.m in Sources */,
+				8F8E166C3C9542358FE907F2 /* CDVJpegHeaderWriter.m in Sources */,
+				10E7E94707844F398530C4EE /* CDVLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +378,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				PRODUCT_NAME = "HelloCordova";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -328,6 +404,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				PRODUCT_NAME = "HelloCordova";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -354,6 +433,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -379,6 +462,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

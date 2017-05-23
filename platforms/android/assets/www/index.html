@@ -28,22 +28,50 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://fakenewsspotter.appspot.com http://localhost:8008 http://127.0.0.1:8008 'unsafe-inline' 'unsafe-eval'; ">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <link href="css/myapp.css" rel="stylesheet" type="text/css" />
+        <link href="css/stupid.css" rel="stylesheet" type="text/css"/>
+        <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <title>Sole Patrol</title>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/vue.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+
+    <div id="vue-div" class="app" style="display:none">
+
+        <button id="post" v-on:click="postphoto"  > Get Photo
+        </button>
+        <img id="imageFile" src="nophoto.jpg" style="width:304px;height:228px;"/>
+
+        <h1 class="center"> Select shoe name: </h1>
+
+
+        <select name='menu' class="myDropDown">
+            <option value='1'></option>
+            <option value='2'>Adidas Yeezy 350 Beluga</option>
+            <option value='3'>third item</option>
+            <option value='4'>fourth item</option>
+            <option value='5'>fifth item</option>
+            <option value='6'>fifth item</option>
+            <option value='7'>fifth item</option>
+            <option value='8'>Nike Air Jordan Banned 1</option>
+            <option value='9'>fifth item</option>
+            <option value='10'>fifth item</option>
+            <option value='11'>fifth item</option>
+            <option value='12'>fifth item</option>
+            <option value='13'>fifth item</option>
+            <option value='14'>fifth item</option>
+            <option value='15'>fifth item</option>
+        </select>
+
+
+
+    <script type="text/javascript" src="cordova.js"></script>
     </body>
 </html>

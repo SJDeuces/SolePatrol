@@ -52,6 +52,86 @@ var app = function() {
         self.is_configured = true;
     };
 
+    // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
+    //
+    self.setOptions = function (srcType) {
+        var options = {
+        // Some common settings are 20, 50, and 100
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        // In this app, dynamically set the picture source, Camera or photo gallery
+        sourceType: srcType,
+        encodingType: Camera.EncodingType.JPEG,
+        mediaType: Camera.MediaType.PICTURE,
+        allowEdit: true,
+        correctOrientation: true  //Corrects Android orientation quirks
+        }
+        return options;
+    };
+
+    self.displayImage = function (imgUri) {
+
+        var elem = document.getElementById('imageFile');
+        elem.src = imgUri;
+    };
+
+    // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
+    // Gets a FileEntry object for the returned picture.
+    self.getFileEntry = function (imgUri) {
+        window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+
+            // Do something with the FileEntry object, like write to it, upload it, etc.
+            // writeFile(fileEntry, imgUri);
+            console.log("got file: " + fileEntry.fullPath);
+             // displayFileData(fileEntry.nativeURL, "Native URL");
+
+        }, function () {
+            // If don't get the FileEntry (which may happen when testing
+            // on some emulators), copy to a new FileEntry.
+            self.createNewFileEntry(imgUri);
+        });
+    };
+
+    // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
+    // creates a file in your app's cache (in sandboxed storage) named tempFile.jpeg. With the new FileEntry object,
+    // you can copy the image to the file or do something else like upload it.
+    self.createNewFileEntry = function (imgUri) {
+        window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
+
+            // JPEG file
+            dirEntry.getFile("tempFile.jpeg", { create: true, exclusive: false }, function (fileEntry) {
+
+                // Do something with it, like write to it, upload it, etc.
+                console.log("its going here!");
+                //writeFile(fileEntry, imgUri);
+                console.log("got file: " + fileEntry.fullPath);
+                // displayFileData(fileEntry.fullPath, "File copied to");
+
+            }, onErrorCreateFile);
+
+        }, onErrorResolveUrl);
+    }
+
+    // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
+    // Testing how access photo album n selecting photo works.
+    self.postphoto = function(){
+        var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+        var options = self.setOptions(srcType);
+        //var func = createNewFileEntry;
+
+        navigator.camera.getPicture(function cameraSuccess(imageUri) {
+        //self.createNewFileEntry(imageUri);
+        self.displayImage(imageUri);
+
+            // Do something
+
+        }, function cameraError(error) {
+            console.debug("Unable to obtain picture: " + error, "app");
+
+        }, options);
+
+    };
+
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],
@@ -59,6 +139,12 @@ var app = function() {
         data: {
         },
         methods: {
+        setOptions: self.setOptions,
+        displayImage: self.displayImage,
+        getFileEntry: self.getFileEntry,
+        createNewFileEntry: self.createNewFileEntry,
+        postphoto: self.postphoto
+
         }
 
     });
