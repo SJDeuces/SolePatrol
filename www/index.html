@@ -28,7 +28,10 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://fakenewsspotter.appspot.com http://localhost:8008 http://127.0.0.1:8008 'unsafe-inline' 'unsafe-eval'; ">
+        <meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'">
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://ssl.gstatic.com 'unsafe-inline'; script-src 'self' http://solepatrolapp.firebaseio.com 'unsafe-inline' 'unsafe-eval'" /> -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; script-src 'self' http://solepatrolapp.firebaseio.com 'unsafe-inline' 'unsafe-eval'; media-src *"> -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://fakenewsspotter.appspot.com http://localhost:8008 http://127.0.0.1:8008 'unsafe-inline' 'unsafe-eval'; "> -->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -37,6 +40,18 @@
         <link href="font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
         <title>Sole Patrol</title>
+        <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+        <script>
+        var config = {
+        apiKey: "AIzaSyBCCs2yernjbV04R7uPeh0eF6q5aq7SPaw",
+        authDomain: "solepatrolapp.firebaseapp.com",
+        databaseURL: "https://solepatrolapp.firebaseio.com",
+        projectId: "solepatrolapp",
+        storageBucket: "solepatrolapp.appspot.com",
+        messagingSenderId: "92561983251"
+        };
+        firebase.initializeApp(config);
+        </script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/vue.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
@@ -45,16 +60,16 @@
 
     <div id="vue-div" class="app" style="display:none">
 
-        <button id="post" v-on:click="postphoto"  > Get Photo
+        <button id="post" v-on:click="getphoto"> Get Photo
         </button>
-        <img id="imageFile" src="nophoto.jpg" style="width:304px;height:228px;"/>
+        <img id="imageFile"  style="width:304px;height:228px;"/>
 
         <h1 class="center"> Select shoe name: </h1>
 
 
         <select name='menu' class="myDropDown">
-            <option value='1'></option>
-            <option value='2'>Adidas Yeezy 350 Beluga</option>
+            <option value="1"></option>
+            <option value="2">Adidas Yeezy 350 Beluga</option>
             <option value='3'>third item</option>
             <option value='4'>fourth item</option>
             <option value='5'>fifth item</option>
@@ -69,6 +84,9 @@
             <option value='14'>fifth item</option>
             <option value='15'>fifth item</option>
         </select>
+
+        <!-- <button id="postbutton" v-on:click="postphoto(  , document.getElementById('menu').value)"> Post photo</button>
+        -->
 
 
 

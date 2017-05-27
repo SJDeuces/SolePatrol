@@ -114,7 +114,7 @@ var app = function() {
 
     // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
     // Testing how access photo album n selecting photo works.
-    self.postphoto = function(){
+    self.getphoto = function(){
         var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
         var options = self.setOptions(srcType);
         //var func = createNewFileEntry;
@@ -132,6 +132,32 @@ var app = function() {
 
     };
 
+    // Puts photo + name + time posted into firebase DB.
+    self.postphoto = function(imguri, name){
+        // I need imguri, name and time.
+        var myFirebaseRef = new Firebase("https://solepatrolapp.firebaseio.com/");
+
+        // like 11/16/2015, 11:18:48 PM
+        var currenttime = new Date(new Date().getTime()).toLocaleString();
+
+        //This puts data into firebase DB
+        myFirebaseRef.set({
+            Shoename: name,
+            photo: imguri,
+            time: currenttime,
+            legitcount: 0,
+            fakecount: 0,
+            totalvotes: 0
+
+        });
+
+        // Turn off upload flag.
+
+        // Turn on feed flag to go to the feed divs.
+
+
+    }
+
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],
@@ -143,6 +169,7 @@ var app = function() {
         displayImage: self.displayImage,
         getFileEntry: self.getFileEntry,
         createNewFileEntry: self.createNewFileEntry,
+        getphoto: self.getphoto,
         postphoto: self.postphoto
 
         }
