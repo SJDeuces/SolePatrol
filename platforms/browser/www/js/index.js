@@ -120,7 +120,7 @@ var app = function() {
         //var func = createNewFileEntry;
 
         navigator.camera.getPicture(function cameraSuccess(imageUri) {
-        //self.createNewFileEntry(imageUri);
+        self.createNewFileEntry(imageUri);
         self.displayImage(imageUri);
 
             // Do something
