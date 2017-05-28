@@ -13,13 +13,16 @@
         "cordova-plugin-photo-library": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "cordova-plugin-console": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-add-swift-support": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },

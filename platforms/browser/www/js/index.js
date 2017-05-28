@@ -120,9 +120,9 @@ var app = function() {
         //var func = createNewFileEntry;
 
         navigator.camera.getPicture(function cameraSuccess(imageUri) {
-        self.createNewFileEntry(imageUri);
+        //self.createNewFileEntry(imageUri);
         self.displayImage(imageUri);
-
+        console.log("***THE IMAGEURI IS " + imageUri);
             // Do something
 
         }, function cameraError(error) {
