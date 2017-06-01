@@ -23,6 +23,18 @@ var app = function() {
 
     Vue.config.silent = false; // show all warnings
 
+    //var database = new Firebase("https://www.gstatic.com/firebasejs/4.0.0/firebase.js");
+    var config = {
+        apiKey: "AIzaSyBCCs2yernjbV04R7uPeh0eF6q5aq7SPaw",
+        authDomain: "solepatrolapp.firebaseapp.com",
+        databaseURL: "https://solepatrolapp.firebaseio.com",
+        projectId: "solepatrolapp",
+        storageBucket: "solepatrolapp.appspot.com",
+        messagingSenderId: "92561983251"
+        };
+    firebase.initializeApp(config);
+    var dbref = firebase.database().ref();
+
     // Extends an array
     self.extend = function(a, b) {
         for (var i = 0; i < b.length; i++) {
@@ -133,30 +145,31 @@ var app = function() {
     };
 
     // Puts photo + name + time posted into firebase DB.
-    self.postphoto = function(imguri, name){
+    self.postphoto = function(imguri ,name){
         // I need imguri, name and time.
-        var myFirebaseRef = new Firebase("https://solepatrolapp.firebaseio.com/");
+        //var database = firebase.database();
+
+        //var myFirebaseRef = new Firebase("https://solepatrolapp.firebaseio.com/");
 
         // like 11/16/2015, 11:18:48 PM
         var currenttime = new Date(new Date().getTime()).toLocaleString();
 
         //This puts data into firebase DB
-        myFirebaseRef.set({
+        dbref.push({
             Shoename: name,
-            photo: imguri,
-            time: currenttime,
-            legitcount: 0,
-            fakecount: 0,
-            totalvotes: 0
+            Photo: imguri ,
+            Time: currenttime,
+            Legitcount: 0,
+            Fakecount: 0,
+            Totalvotes: 0
 
         });
+        console.log("Just pushed a photo to the DB!");
 
         // Turn off upload flag.
 
         // Turn on feed flag to go to the feed divs.
-
-
-    }
+    };
 
     self.vue = new Vue({
         el: "#vue-div",
@@ -170,7 +183,8 @@ var app = function() {
         getFileEntry: self.getFileEntry,
         createNewFileEntry: self.createNewFileEntry,
         getphoto: self.getphoto,
-        postphoto: self.postphoto
+        postphoto: self.postphoto,
+
 
         }
 

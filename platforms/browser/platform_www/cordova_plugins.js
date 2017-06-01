@@ -237,13 +237,13 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-compat": "1.1.0",
     "cordova-plugin-whitelist": "1.3.2",
     "cordova-plugin-file": "4.3.2",
     "cordova-plugin-photo-library": "2.0.4",
     "cordova-plugin-console": "1.0.7",
     "cordova-plugin-camera": "2.4.1",
-    "cordova-plugin-add-swift-support": "1.6.2"
+    "cordova-plugin-add-swift-support": "1.6.2",
+    "cordova-plugin-compat": "1.1.0"
 }
 // BOTTOM OF METADATA
 });
