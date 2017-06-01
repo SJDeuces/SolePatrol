@@ -144,8 +144,10 @@ var app = function() {
 
     };
 
+
+
     // Puts photo + name + time posted into firebase DB.
-    self.postphoto = function(imguri ,name){
+    self.postphoto = function(imguri ,name, pTitle){
         // I need imguri, name and time.
         //var database = firebase.database();
 
@@ -158,6 +160,7 @@ var app = function() {
         dbref.push({
             Shoename: name,
             Photo: imguri ,
+            PostTitle: pTitle,
             Time: currenttime,
             Legitcount: 0,
             Fakecount: 0,

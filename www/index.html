@@ -47,7 +47,6 @@
 
 
             function setName(a) {
-
                 var shoename = a;
                 console.log("Shoename = " + shoename);
             }
@@ -86,7 +85,11 @@
             <option value='Nike Air Jordan 10 OVO'>Nike Air Jordan 10 OVO</option>
         </select>
 
-        <button id="postbutton" v-on:click="postphoto( document.getElementById('imageFile').getAttribute('src'), document.getElementById('menu').value)"> Post photo
+        <h1 class="center"> Post Title: </h1>
+        <input type="text" id="postTitle" maxlength="25">
+
+        <button id="postbutton" v-on:click="postphoto(document.getElementById('imageFile').getAttribute('src'),
+        document.getElementById('menu').value, document.getElementById('postTitle').value)"> Post photo
         </button>
 
 
