@@ -144,7 +144,33 @@ var app = function() {
 
     };
 
+    //Makes sure user inputted a picture and title
+    self.verify = function(imguri, name, pTitle){
+        // As long as photo and title isn't null,
+        // add pic and its fields to firebaseDB
+        if(imguri  && pTitle != ""){
+            self.postphoto(imguri, name, pTitle);
+            alert("Photo posted to Legit Check feed!");
+            //Turn upload flag off
 
+            //Turn feed flag on
+
+        }
+        else{
+            // If a pic wasn't chosen, alert and don't add
+            // to DB
+            if(imguri == null ){
+                alert("No shoe photo was selected from your photo album, please choose one!");
+            }
+            // If a title wasn't inputted, alert and don't add
+            // to DB
+            if(pTitle == ""){
+                alert("No posting title was inputted, please put one!");
+            }
+
+        }
+
+    };
 
     // Puts photo + name + time posted into firebase DB.
     self.postphoto = function(imguri ,name, pTitle){
@@ -187,8 +213,7 @@ var app = function() {
         createNewFileEntry: self.createNewFileEntry,
         getphoto: self.getphoto,
         postphoto: self.postphoto,
-
-
+        verify: self.verify
         }
 
     });
