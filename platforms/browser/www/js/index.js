@@ -21,6 +21,7 @@ var app = function() {
     var self = {};
     self.is_configured = false;
 
+
     Vue.config.silent = false; // show all warnings
 
     //var database = new Firebase("https://www.gstatic.com/firebasejs/4.0.0/firebase.js");
@@ -144,8 +145,46 @@ var app = function() {
 
     };
 
+    //Switches feed page to upload page
+    self.uploadPage = function(){
+    //Turn off feed flag
+    is_on_feed = false;
+
+    //Turn on upload flag
+    is_uploading = true;
+    alert("time to upload a photo!");
+    };
+
+    //Makes sure user inputted a picture and title before adding to DB.
+    self.verify = function(imguri, name, pTitle){
+        // As long as photo and title isn't null,
+        // add pic and its fields to firebaseDB
+        if(imguri  && pTitle != ""){
+            self.postphoto(imguri, name, pTitle);
+            alert("Photo posted to Legit Check feed!");
+            //Turn upload flag off
+
+            //Turn feed flag on
+
+        }
+        else{
+            // If a pic wasn't chosen, alert and don't add
+            // to DB
+            if(imguri == null ){
+                alert("No shoe photo was selected from your photo album, please choose one!");
+            }
+            // If a title wasn't inputted, alert and don't add
+            // to DB
+            if(pTitle == ""){
+                alert("No posting title was inputted, please put one!");
+            }
+
+        }
+
+    };
+
     // Puts photo + name + time posted into firebase DB.
-    self.postphoto = function(name){
+    self.postphoto = function(imguri ,name, pTitle){
         // I need imguri, name and time.
         //var database = firebase.database();
 
@@ -157,11 +196,12 @@ var app = function() {
         //This puts data into firebase DB
         dbref.push({
             Shoename: name,
-            //photo: imguri ,
-            time: currenttime,
-            legitcount: 0,
-            fakecount: 0,
-            totalvotes: 0
+            Photo: imguri ,
+            PostTitle: pTitle,
+            Time: currenttime,
+            Legitcount: 0,
+            Fakecount: 0,
+            Totalvotes: 0
 
         });
         console.log("Just pushed a photo to the DB!");
@@ -176,6 +216,8 @@ var app = function() {
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
+          var is_uploading = false;
+          var is_on_feed = true;
         },
         methods: {
         setOptions: self.setOptions,
@@ -184,7 +226,8 @@ var app = function() {
         createNewFileEntry: self.createNewFileEntry,
         getphoto: self.getphoto,
         postphoto: self.postphoto,
-
+        verify: self.verify,
+        uploadPage: self.uploadPage
 
         }
 

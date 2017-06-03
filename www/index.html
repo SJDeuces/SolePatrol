@@ -43,7 +43,7 @@
         <title>Sole Patrol</title>
         <script type='text/javascript'>
 
-            var photoUri = document.getElementById("imageFile").src;
+             var photoUri = document.getElementById("imageFile").src;
 
 
             function setName(a) {
@@ -59,43 +59,50 @@
     <body>
 
     <div id="vue-div" class="app" style="display:none">
+        <div v-if="is_uploading">
+            <button id="post" v-on:click="getphoto">Get Photo
+            </button>
+            <img id="imageFile"  style="width:304px;height:228px;"/>
 
-        <button id="post" v-on:click="getphoto">Get Photo
-        </button>
-        <img id="imageFile"  style="width:304px;height:228px;"/>
-
-        <h1 class="center"> Select shoe name: </h1>
-
-
-        <select id="menu" class="myDropDown" onchange="setName(this.value)">
-            <option selected disabled hidden>Choose shoe name</option>
-            <option value='Adidas NMD Human Race'>Adidas NMD Human Race</option>
-            <option value='Adidas NMD Bape'>Adidas NMD Bape</option>
-            <option value='Adidas Yeezy 350 Pirate Black'>Adidas Yeezy 350 Pirate Black</option>
-            <option value='Adidas Yeezy 350 Turtle Dove'>Adidas Yeezy 350 Turtle Dove</option>
-            <option value='Adidas Yeezy 350 V2 Beluga'>Adidas Yeezy 350 V2 Beluga</option>
-            <option value='Adidas Yeezy 350 V2 Zebra'>Adidas Yeezy 350 V2 Zebra</option>
-            <option value='Adidas Yeezy 750 Grey Gum'>Adidas Yeezy 750 Grey Gum</option>
-            <option value='Adidas Yeezy 750 OG Light Grey'>Adidas Yeezy 750 OG Light Grey</option>
-            <option value='Nike Air Jordan 1 Banned'>Nike Air Jordan 1 Banned </option>
-            <option value='Nike Air Jordan 1 Royal'>Nike Air Jordan 1 Royal</option>
-            <option value='Nike Air Jordan 3 Black Cement'>Nike Air Jordan 3 Black Cement</option>
-            <option value='Nike Air Jordan 4 White Cement'>Nike Air Jordan 4 White Cement</option>
-            <option value='Nike Air Jordan 5 Grapes'>Nike Air Jordan 5 Grapes</option>
-            <option value='Nike Air Jordan 10 OVO'>Nike Air Jordan 10 OVO</option>
-        </select>
-
-        <h1 class="center"> Post Title: </h1>
-        <input type="text" id="postTitle" maxlength="25">
-
-        <button id="postbutton" v-on:click="verify(document.getElementById('imageFile').getAttribute('src'),
-        document.getElementById('menu').value, document.getElementById('postTitle').value)"> Post photo
-        </button>
+            <h1 class="center"> Select shoe name: </h1>
 
 
+            <select id="menu" class="myDropDown" onchange="setName(this.value)">
+                <option selected disabled hidden>Choose shoe name</option>
+                <option value='Adidas NMD Human Race'>Adidas NMD Human Race</option>
+                <option value='Adidas NMD Bape'>Adidas NMD Bape</option>
+                <option value='Adidas Yeezy 350 Pirate Black'>Adidas Yeezy 350 Pirate Black</option>
+                <option value='Adidas Yeezy 350 Turtle Dove'>Adidas Yeezy 350 Turtle Dove</option>
+                <option value='Adidas Yeezy 350 V2 Beluga'>Adidas Yeezy 350 V2 Beluga</option>
+                <option value='Adidas Yeezy 350 V2 Zebra'>Adidas Yeezy 350 V2 Zebra</option>
+                <option value='Adidas Yeezy 750 Grey Gum'>Adidas Yeezy 750 Grey Gum</option>
+                <option value='Adidas Yeezy 750 OG Light Grey'>Adidas Yeezy 750 OG Light Grey</option>
+                <option value='Nike Air Jordan 1 Banned'>Nike Air Jordan 1 Banned </option>
+                <option value='Nike Air Jordan 1 Royal'>Nike Air Jordan 1 Royal</option>
+                <option value='Nike Air Jordan 3 Black Cement'>Nike Air Jordan 3 Black Cement</option>
+                <option value='Nike Air Jordan 4 White Cement'>Nike Air Jordan 4 White Cement</option>
+                <option value='Nike Air Jordan 5 Grapes'>Nike Air Jordan 5 Grapes</option>
+                <option value='Nike Air Jordan 10 OVO'>Nike Air Jordan 10 OVO</option>
+            </select>
 
+            <h1 class="center"> Post Title: </h1>
+            <input type="text" id="postTitle" maxlength="25">
 
-    <script type="text/javascript" src="cordova.js"></script>
+            <button id="postbutton" v-on:click="verify(document.getElementById('imageFile').getAttribute('src'),
+            document.getElementById('menu').value, document.getElementById('postTitle').value)"> Post photo
+            </button>
+            <button id="backtofeed" v-on:click="uploadToFeed()">Back To Feed
+            </button>
+        </div>
+
+        <div v-if="is_on_feed">
+            <button id="uploadbutton" v-on:click="uploadPage()"> Upload Photo
+            </button>
+        </div>
+
+        <script type="text/javascript" src="cordova.js"></script>
     </div>
+
+
     </body>
 </html>

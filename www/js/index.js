@@ -21,6 +21,7 @@ var app = function() {
     var self = {};
     self.is_configured = false;
 
+
     Vue.config.silent = false; // show all warnings
 
     //var database = new Firebase("https://www.gstatic.com/firebasejs/4.0.0/firebase.js");
@@ -144,7 +145,29 @@ var app = function() {
 
     };
 
-    //Makes sure user inputted a picture and title
+    // Switches feed page to upload page
+    self.uploadPage = function(){
+        //Turn off feed flag
+        self.vue.is_on_feed = false;
+
+        //Turn on upload flag
+        self.vue.is_uploading = true;
+        alert("time to upload a photo!");
+
+    };
+
+    // Goes back from upload page to feed page without posting a photo.
+    self.uploadToFeed = function(){
+
+        // Turns off upload flag
+        self.vue.is_uploading = false;
+
+        // Turns on feed flag
+        self.vue.is_on_feed = true;
+
+    };
+
+    //Makes sure user inputted a picture and title before adding to DB.
     self.verify = function(imguri, name, pTitle){
         // As long as photo and title isn't null,
         // add pic and its fields to firebaseDB
@@ -152,9 +175,10 @@ var app = function() {
             self.postphoto(imguri, name, pTitle);
             alert("Photo posted to Legit Check feed!");
             //Turn upload flag off
+            self.vue.is_uploading = false;
 
             //Turn feed flag on
-
+            self.vue.is_on_feed = true;
         }
         else{
             // If a pic wasn't chosen, alert and don't add
@@ -196,8 +220,10 @@ var app = function() {
         console.log("Just pushed a photo to the DB!");
 
         // Turn off upload flag.
+        self.vue.is_uploading = false;
 
-        // Turn on feed flag to go to the feed divs.
+        // Turns on feed flag.
+        self.vue.is_on_feed = true;
     };
 
     self.vue = new Vue({
@@ -205,6 +231,8 @@ var app = function() {
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
+         is_uploading: false,
+         is_on_feed: true
         },
         methods: {
         setOptions: self.setOptions,
@@ -213,7 +241,10 @@ var app = function() {
         createNewFileEntry: self.createNewFileEntry,
         getphoto: self.getphoto,
         postphoto: self.postphoto,
-        verify: self.verify
+        verify: self.verify,
+        uploadPage: self.uploadPage,
+        uploadToFeed: self.uploadToFeed
+
         }
 
     });
