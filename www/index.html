@@ -58,7 +58,10 @@
     </head>
     <body>
 
+    <div class="main_content">
+
     <div id="vue-div" class="app" style="display:none">
+        <!-- This div is for the uploading photo display -->
         <div v-if="is_uploading">
             <button id="post" v-on:click="getphoto">Get Photo
             </button>
@@ -95,7 +98,29 @@
             </button>
         </div>
 
-        <div v-if="is_on_feed">
+        <!-- This div is for the feed page display -->
+        <div  v-if="is_on_feed">
+            <h1 class="center">Legit Check Feed</h1>
+            <button id="postList" v-on:click="populateFeed()">Refresh Feed</button>
+
+            <div class="container center">
+                <table>
+                    <tr v-for="p in posts">
+                        <!-- **Do the code to make clickable div to vote!!!!**
+                         make it like v-onclick="vote( //the photos id)"
+                         -->
+                        <!-- This isnt working!!! saes PostTitle and Time are undefined -->
+                        <td>
+                            ${p.PostTitle}  &nbsp; &nbsp; &nbsp;  ${p.Time}
+                        </td>
+
+
+                    </tr>
+                </table>
+
+            </div>
+
+
             <button id="uploadbutton" v-on:click="uploadPage()"> Upload Photo
             </button>
         </div>
@@ -103,6 +128,6 @@
         <script type="text/javascript" src="cordova.js"></script>
     </div>
 
-
+    </div>
     </body>
 </html>

@@ -133,6 +133,7 @@ var app = function() {
         //var func = createNewFileEntry;
 
         navigator.camera.getPicture(function cameraSuccess(imageUri) {
+        // ******NEED CODE TO CHANGE PHOTO TO A FILE******
         //self.createNewFileEntry(imageUri);
         self.displayImage(imageUri);
         console.log("***THE IMAGEURI IS " + imageUri);
@@ -145,14 +146,41 @@ var app = function() {
 
     };
 
-    //Switches feed page to upload page
-    self.uploadPage = function(){
-    //Turn off feed flag
-    is_on_feed = false;
+    // This does a DB call to update feed listing to be displayed.
+    self.populateFeed = function(){
+        //Clear post dictionary
+        self.vue.posts = [];
 
-    //Turn on upload flag
-    is_uploading = true;
-    alert("time to upload a photo!");
+        dbref.orderByChild("Time").limitToFirst(10).on("child_added", function (snapshot){
+            //console.log(snapshot.key);
+            var addData = JSON.stringify(snapshot.val());
+            self.vue.posts.push(addData);
+        });
+
+        console.log(self.vue.posts);
+
+    };
+
+    // Switches feed page to upload page
+    self.uploadPage = function(){
+        //Turn off feed flag
+        self.vue.is_on_feed = false;
+
+        //Turn on upload flag
+        self.vue.is_uploading = true;
+        alert("time to upload a photo!");
+
+    };
+
+    // Goes back from upload page to feed page without posting a photo.
+    self.uploadToFeed = function(){
+
+        // Turns off upload flag
+        self.vue.is_uploading = false;
+
+        // Turns on feed flag
+        self.vue.is_on_feed = true;
+
     };
 
     //Makes sure user inputted a picture and title before adding to DB.
@@ -163,9 +191,10 @@ var app = function() {
             self.postphoto(imguri, name, pTitle);
             alert("Photo posted to Legit Check feed!");
             //Turn upload flag off
+            self.vue.is_uploading = false;
 
             //Turn feed flag on
-
+            self.vue.is_on_feed = true;
         }
         else{
             // If a pic wasn't chosen, alert and don't add
@@ -191,7 +220,8 @@ var app = function() {
         //var myFirebaseRef = new Firebase("https://solepatrolapp.firebaseio.com/");
 
         // like 11/16/2015, 11:18:48 PM
-        var currenttime = new Date(new Date().getTime()).toLocaleString();
+        //var currenttime = new Date(new Date().getTime()).toLocaleString();
+        var currenttime = new Date().getTime();
 
         //This puts data into firebase DB
         dbref.push({
@@ -207,8 +237,10 @@ var app = function() {
         console.log("Just pushed a photo to the DB!");
 
         // Turn off upload flag.
+        self.vue.is_uploading = false;
 
-        // Turn on feed flag to go to the feed divs.
+        // Turns on feed flag.
+        self.vue.is_on_feed = true;
     };
 
     self.vue = new Vue({
@@ -216,8 +248,9 @@ var app = function() {
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
-          var is_uploading = false;
-          var is_on_feed = true;
+            posts: [],
+            is_uploading: false,
+            is_on_feed: true
         },
         methods: {
         setOptions: self.setOptions,
@@ -227,7 +260,9 @@ var app = function() {
         getphoto: self.getphoto,
         postphoto: self.postphoto,
         verify: self.verify,
-        uploadPage: self.uploadPage
+        populateFeed: self.populateFeed,
+        uploadPage: self.uploadPage,
+        uploadToFeed: self.uploadToFeed
 
         }
 

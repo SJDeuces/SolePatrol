@@ -133,6 +133,7 @@ var app = function() {
         //var func = createNewFileEntry;
 
         navigator.camera.getPicture(function cameraSuccess(imageUri) {
+        // ******NEED CODE TO CHANGE PHOTO TO A FILE******
         //self.createNewFileEntry(imageUri);
         self.displayImage(imageUri);
         console.log("***THE IMAGEURI IS " + imageUri);
@@ -142,6 +143,22 @@ var app = function() {
             console.debug("Unable to obtain picture: " + error, "app");
 
         }, options);
+
+    };
+
+    // This does a DB call to update feed listing to be displayed.
+    self.populateFeed = function(){
+        //Clear post dictionary
+        self.vue.posts = [];
+
+        dbref.orderByChild("Time").limitToFirst(10).on("child_added", function (snapshot){
+            //console.log(snapshot.key);
+            var addData = JSON.stringify(snapshot.val());
+            self.vue.posts.push(addData);
+
+
+        });
+        console.log(self.vue.posts);
 
     };
 
@@ -204,7 +221,8 @@ var app = function() {
         //var myFirebaseRef = new Firebase("https://solepatrolapp.firebaseio.com/");
 
         // like 11/16/2015, 11:18:48 PM
-        var currenttime = new Date(new Date().getTime()).toLocaleString();
+        //var currenttime = new Date(new Date().getTime()).toLocaleString();
+        var currenttime = new Date().getTime();
 
         //This puts data into firebase DB
         dbref.push({
@@ -231,8 +249,9 @@ var app = function() {
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
-         is_uploading: false,
-         is_on_feed: true
+            posts: [],
+            is_uploading: false,
+            is_on_feed: true
         },
         methods: {
         setOptions: self.setOptions,
@@ -242,12 +261,17 @@ var app = function() {
         getphoto: self.getphoto,
         postphoto: self.postphoto,
         verify: self.verify,
+        populateFeed: self.populateFeed,
         uploadPage: self.uploadPage,
         uploadToFeed: self.uploadToFeed
 
         }
 
     });
+
+
+    self.populateFeed();
+    $("#vue-div").show();
 
     return self;
 };

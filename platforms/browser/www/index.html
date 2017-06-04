@@ -59,6 +59,7 @@
     <body>
 
     <div id="vue-div" class="app" style="display:none">
+        <!-- This div is for the uploading photo display -->
         <div v-if="is_uploading">
             <button id="post" v-on:click="getphoto">Get Photo
             </button>
@@ -91,9 +92,31 @@
             <button id="postbutton" v-on:click="verify(document.getElementById('imageFile').getAttribute('src'),
             document.getElementById('menu').value, document.getElementById('postTitle').value)"> Post photo
             </button>
+            <button id="backtofeed" v-on:click="uploadToFeed()">Back To Feed
+            </button>
         </div>
 
+        <!-- This div is for the feed page display -->
         <div v-if="is_on_feed">
+            <h1 class="center">Legit Check Feed</h1>
+            <button id="postList" v-on:click="populateFeed()">Get/Refresh Feed</button>
+
+            <div id="post_content" class="container center">
+                <table>
+                    <tr v-for="post in posts">
+                        <!-- **Do the code to make clickable div to vote!!!!**
+                         make it like v-onclick="vote( //the photos id)"
+                         -->
+                        <div>
+                            <p> ${post.PostTitle} &nbsp; &nbsp; &nbsp; ${post.Time}</p>
+                        </div>
+
+                    </tr>
+                </table>
+
+            </div>
+
+
             <button id="uploadbutton" v-on:click="uploadPage()"> Upload Photo
             </button>
         </div>
