@@ -153,10 +153,12 @@ var app = function() {
 
         dbref.orderByChild("Time").limitToFirst(10).on("child_added", function (snapshot){
             //console.log(snapshot.key);
-            var addData = JSON.stringify(snapshot.val());
+            //var addData = JSON.stringify(snapshot.val());
+            var addData = snapshot.val();
             self.vue.posts.push(addData);
-        });
 
+
+        });
         console.log(self.vue.posts);
 
     };
@@ -267,6 +269,10 @@ var app = function() {
         }
 
     });
+
+
+    self.populateFeed();
+    $("#vue-div").show();
 
     return self;
 };
