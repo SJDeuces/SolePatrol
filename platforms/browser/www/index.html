@@ -103,15 +103,14 @@
             <h1 class="center">Legit Check Feed</h1>
             <button id="postList" v-on:click="populateFeed()">Refresh Feed</button>
 
-            <div class="container center">
-                <table>
+            <div >
+                <table class="center">
                     <tr v-for="p in posts">
                         <!-- **Do the code to make clickable div to vote!!!!**
                          make it like v-onclick="vote( //the photos id)"
                          -->
-                        <!-- This isnt working!!! saes PostTitle and Time are undefined -->
-                        <td>
-                            ${p.PostTitle}  &nbsp; &nbsp; &nbsp;  ${p.Time}
+                        <td v-on:click="vote(${p.PostTitle})">
+                            <b>${p.PostTitle}</b>  <br> ${p.Time}
                         </td>
 
 
@@ -123,6 +122,13 @@
 
             <button id="uploadbutton" v-on:click="uploadPage()"> Upload Photo
             </button>
+        </div>
+
+        <!-- This div is for the voting page display -->
+        <div v-if="is_voting">
+            <h1 class="center" id="voteTitle">Legit Check</h1>
+            <img id="votingImage"  style="width:304px;height:228px;"/>
+            <button id="backbutton" v-on:click="voteToFeed()">Back</button>
         </div>
 
         <script type="text/javascript" src="cordova.js"></script>

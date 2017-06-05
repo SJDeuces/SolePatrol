@@ -35,6 +35,7 @@ var app = function() {
         };
     firebase.initializeApp(config);
     var dbref = firebase.database().ref();
+    var storage = firebase.storage().ref();
 
     // Extends an array
     self.extend = function(a, b) {
@@ -96,45 +97,36 @@ var app = function() {
             // Do something with the FileEntry object, like write to it, upload it, etc.
             // writeFile(fileEntry, imgUri);
             console.log("got file: " + fileEntry.fullPath);
+
+            var picRef = storage.child(fileEntry.fullPath);
+            picRef.put(fileEntry).then(function(snapshot){
+                alert(snapshot.val());
+            });
+
+
+
              // displayFileData(fileEntry.nativeURL, "Native URL");
 
         }, function () {
             // If don't get the FileEntry (which may happen when testing
             // on some emulators), copy to a new FileEntry.
-            self.createNewFileEntry(imgUri);
+            //self.createNewFileEntry(imgUri);
         });
     };
 
-    // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
-    // creates a file in your app's cache (in sandboxed storage) named tempFile.jpeg. With the new FileEntry object,
-    // you can copy the image to the file or do something else like upload it.
-    self.createNewFileEntry = function (imgUri) {
-        window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
 
-            // JPEG file
-            dirEntry.getFile("tempFile.jpeg", { create: true, exclusive: false }, function (fileEntry) {
-
-                // Do something with it, like write to it, upload it, etc.
-                console.log("its going here!");
-                //writeFile(fileEntry, imgUri);
-                console.log("got file: " + fileEntry.fullPath);
-                // displayFileData(fileEntry.fullPath, "File copied to");
-
-            }, onErrorCreateFile);
-
-        }, onErrorResolveUrl);
-    }
 
     // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
     // Testing how access photo album n selecting photo works.
     self.getphoto = function(){
         var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
         var options = self.setOptions(srcType);
-        //var func = createNewFileEntry;
 
+        //When picked image, do this
         navigator.camera.getPicture(function cameraSuccess(imageUri) {
-        // ******NEED CODE TO CHANGE PHOTO TO A FILE******
-        //self.createNewFileEntry(imageUri);
+
+        self.getFileEntry(imageUri);
+
         self.displayImage(imageUri);
         console.log("***THE IMAGEURI IS " + imageUri);
             // Do something
@@ -159,7 +151,6 @@ var app = function() {
 
 
         });
-        console.log(self.vue.posts);
 
     };
 
@@ -182,6 +173,33 @@ var app = function() {
 
         // Turns on feed flag
         self.vue.is_on_feed = true;
+
+    };
+
+    // Whatever post is clicked, a vote page with the
+    self.vote = function(title) {
+    //Turn off the feed flag
+    self.vue.is_on_feed = false;
+
+    // Turn on the voting flag
+    self.vue.is_voting = true;
+
+    var elem = document.getElementById('voteTitle');
+        elem.innerHTML = title;
+
+    // Set up the image to be displayed from storage using id passed in.
+
+
+
+    };
+
+    //When back button is pressed, goes back to feed
+    self.voteToFeed = function() {
+    // Turn off the voting flag
+    self.vue.is_voting = false;
+
+    //Turn on the feed flag
+    self.vue.is_on_feed = true;
 
     };
 
@@ -217,13 +235,16 @@ var app = function() {
     // Puts photo + name + time posted into firebase DB.
     self.postphoto = function(imguri ,name, pTitle){
         // I need imguri, name and time.
-        //var database = firebase.database();
 
-        //var myFirebaseRef = new Firebase("https://solepatrolapp.firebaseio.com/");
 
         // like 11/16/2015, 11:18:48 PM
-        //var currenttime = new Date(new Date().getTime()).toLocaleString();
-        var currenttime = new Date().getTime();
+        var currenttime = new Date(new Date().getTime()).toLocaleString();
+        //var currenttime = new Date(new Date().getFullYear().toString()).getTime().toLocaleString();
+
+
+
+        //Save the id of the image and pass in to Photo field of DB entry
+
 
         //This puts data into firebase DB
         dbref.push({
@@ -252,7 +273,8 @@ var app = function() {
         data: {
             posts: [],
             is_uploading: false,
-            is_on_feed: true
+            is_on_feed: true,
+            is_voting: false
         },
         methods: {
         setOptions: self.setOptions,
@@ -263,8 +285,11 @@ var app = function() {
         postphoto: self.postphoto,
         verify: self.verify,
         populateFeed: self.populateFeed,
+        vote: self.vote,
+        voteToFeed: self.voteToFeed,
         uploadPage: self.uploadPage,
-        uploadToFeed: self.uploadToFeed
+        uploadToFeed: self.uploadToFeed,
+
 
         }
 
