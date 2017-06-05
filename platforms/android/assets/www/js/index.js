@@ -151,7 +151,7 @@ var app = function() {
         //Clear post dictionary
         self.vue.posts = [];
 
-        dbref.orderByChild("Time").limitToFirst(10).on("child_added", function (snapshot){
+        dbref.orderByChild("Time").limitToLast(10).on("child_added", function (snapshot){
             //console.log(snapshot.key);
             //var addData = JSON.stringify(snapshot.val());
             var addData = snapshot.val();
