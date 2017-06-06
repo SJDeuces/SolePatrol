@@ -103,7 +103,7 @@
             <h1 class="center">Legit Check Feed</h1>
             <button id="postList" v-on:click="populateFeed()">Refresh Feed</button>
 
-            <div >
+            <div>
                 <table class="center">
                     <tr v-for="p in posts">
                         <!-- **Do the code to make clickable div to vote!!!!**
@@ -126,9 +126,13 @@
 
         <!-- This div is for the voting page display -->
         <div v-if="is_voting">
-            <h1 class="center" id="voteTitle"></h1>
+            <h1 class="center" id="voteTitle" ></h1>
             <img id="votingImage"  style="width:304px;height:228px;"/>
-            <button id="backbutton" v-on:click="voteToFeed()">Back</button>
+            <div class="center">
+                <button id="realbutton">REAL</button>
+                <button id="fakebutton">FAKE</button> <br>
+                <button id="backbutton" v-on:click="voteToFeed()">Back</button>
+            </div>
         </div>
 
         <script type="text/javascript" src="cordova.js"></script>

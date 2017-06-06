@@ -184,15 +184,20 @@ var app = function() {
         // Turn on the voting flag
         self.vue.is_voting = true;
 
-        var titleEl = document.getElementById('voteTitle');
-        titleEl.textContent = title;
 
+        var titleEl = document.getElementById("voteTitle");
+        titleEl.innerHTML = title;
 
 
         console.log("The title passed in is " + title);
 
         // Set up the image to be displayed from storage using id passed in.
 
+    };
+
+    self.setvotepage = function(title){
+    var titleEl = document.getElementById("voteTitle");
+        titleEl.innerHTML = title;
     };
 
     //When back button is pressed, goes back to feed
@@ -259,7 +264,7 @@ var app = function() {
             Totalvotes: 0
 
         });
-        console.log("Just pushed a photo to the DB!");
+        console.log("Added a photo to the Legit Check Feeds!");
 
         // Turn off upload flag.
         self.vue.is_uploading = false;
