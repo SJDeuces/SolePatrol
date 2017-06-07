@@ -175,6 +175,7 @@ var app = function() {
 
     // Whatever post is clicked, a vote page with the
     self.vote = function(title, shoename) {
+        alert("Now voting on a picture of a(n) " + shoename);
         //Turn off the feed flag
         self.vue.is_on_feed = false;
 
