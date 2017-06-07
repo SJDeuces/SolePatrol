@@ -109,7 +109,7 @@
                         <!-- **Do the code to make clickable div to vote!!!!**
                          make it like v-onclick="vote( //the photos id)"
                          -->
-                        <td v-on:click="vote(p.PostTitle)">
+                        <td v-on:click="vote(p.PostTitle, p.Shoename)">
                             <b>${p.PostTitle}</b>  <br> ${p.Time}
                         </td>
 
@@ -119,21 +119,29 @@
 
             </div>
 
-
             <button id="uploadbutton" v-on:click="uploadPage()"> Upload Photo
             </button>
         </div>
 
+        <div id="votingdiv">
+            <h1 style="display: none;" class="center" id="voteTitle"></h1> <br>
+            <b style="display: none;" class="center" id="shoeName"></b>
+        </div>
         <!-- This div is for the voting page display -->
         <div v-if="is_voting">
-            <h1 class="center" id="voteTitle" ></h1>
+
+
+
             <img id="votingImage"  style="width:304px;height:228px;"/>
+
             <div class="center">
                 <button id="realbutton">REAL</button>
                 <button id="fakebutton">FAKE</button> <br>
                 <button id="backbutton" v-on:click="voteToFeed()">Back</button>
             </div>
         </div>
+
+
 
         <script type="text/javascript" src="cordova.js"></script>
     </div>

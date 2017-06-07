@@ -96,9 +96,9 @@ var app = function() {
 
             // Do something with the FileEntry object, like write to it, upload it, etc.
             // writeFile(fileEntry, imgUri);
-            console.log("got file: " + fileEntry.fullPath);
 
-            var picRef = storage.child(fileEntry.fullPath);
+
+            var picRef = storage.child('solepatrolapp/' + fileEntry.fullPath);
             picRef.put(fileEntry).then(function(snapshot){
                 alert(snapshot.val());
             });
@@ -113,8 +113,6 @@ var app = function() {
             //self.createNewFileEntry(imgUri);
         });
     };
-
-
 
     // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
     // Testing how access photo album n selecting photo works.
@@ -161,7 +159,6 @@ var app = function() {
 
         //Turn on upload flag
         self.vue.is_uploading = true;
-        alert("time to upload a photo!");
 
     };
 
@@ -177,16 +174,21 @@ var app = function() {
     };
 
     // Whatever post is clicked, a vote page with the
-    self.vote = function(title) {
+    self.vote = function(title, shoename) {
         //Turn off the feed flag
         self.vue.is_on_feed = false;
 
         // Turn on the voting flag
         self.vue.is_voting = true;
 
-
+        // Make post fields visible!
         var titleEl = document.getElementById("voteTitle");
+        titleEl.style.display = "block";
         titleEl.innerHTML = title;
+
+        var nameEl = document.getElementById("shoeName");
+        nameEl.style.display = "block";
+        nameEl.innerHTML = shoename;
 
 
         console.log("The title passed in is " + title);
@@ -196,7 +198,7 @@ var app = function() {
     };
 
     self.setvotepage = function(title){
-    var titleEl = document.getElementById("voteTitle");
+    var titleEl = document.getElementsById("voteTitle");
         titleEl.innerHTML = title;
     };
 
@@ -207,6 +209,15 @@ var app = function() {
 
     //Turn on the feed flag
     self.vue.is_on_feed = true;
+
+    //Hides the displayed text!
+    var titleEl = document.getElementById("voteTitle");
+        titleEl.style.display = "none";
+
+    var nameEl = document.getElementById("shoeName");
+        nameEl.style.display = "none";
+
+
 
     };
 
@@ -295,8 +306,7 @@ var app = function() {
         vote: self.vote,
         voteToFeed: self.voteToFeed,
         uploadPage: self.uploadPage,
-        uploadToFeed: self.uploadToFeed,
-
+        uploadToFeed: self.uploadToFeed
 
         }
 
