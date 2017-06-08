@@ -35,7 +35,7 @@ var app = function() {
         };
     firebase.initializeApp(config);
     var dbref = firebase.database().ref();
-    var storage = firebase.storage().ref();
+    var storage = firebase.storage().ref('solepatrolapp');
 
     // Extends an array
     self.extend = function(a, b) {
@@ -89,6 +89,25 @@ var app = function() {
         elem.src = imgUri;
     };
 
+    self.success = function (file) {
+    //console.log("File size: " + file.size);
+    var picRef = storage.child(file.name);
+    //var blob = new Blob([file],{type:'image/jpg'});
+    //var url = URL.createObjectURL(blob);
+
+
+    picRef.put(blob).then(function(snapshot){
+                alert("CONGRATZ U UPLOADED A FILE .... FUCK!");
+    });
+
+    };
+
+    self.fail = function (error) {
+    alert("Unable to retrieve file properties: " + error.code);
+    };
+
+
+
     // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
     // Gets a FileEntry object for the returned picture.
     self.getFileEntry = function (imgUri) {
@@ -96,11 +115,17 @@ var app = function() {
 
             // Do something with the FileEntry object, like write to it, upload it, etc.
             // writeFile(fileEntry, imgUri);
+            var blob = new Blob([fileEntry],{type:'image/jpg'});
+            var url = URL.createObjectURL(blob);
 
 
-            var picRef = storage.child('solepatrolapp/' + fileEntry.fullPath);
-            picRef.put(fileEntry).then(function(snapshot){
-                alert(snapshot.val());
+            var picRef = storage.child(fileEntry.fullPath);
+            //fileEntry.file(self.success, self.fail);
+
+            picRef.put(blob).then(function(snapshot){
+
+             alert("CONGRATZ U UPLOADED A FILE .... FUCK!");
+
             });
 
 
@@ -307,7 +332,9 @@ var app = function() {
         vote: self.vote,
         voteToFeed: self.voteToFeed,
         uploadPage: self.uploadPage,
-        uploadToFeed: self.uploadToFeed
+        uploadToFeed: self.uploadToFeed,
+        success: self.success,
+        fail: self.fail
 
         }
 

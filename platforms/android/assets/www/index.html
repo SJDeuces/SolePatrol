@@ -101,7 +101,9 @@
         <!-- This div is for the feed page display -->
         <div  v-if="is_on_feed">
             <h1 class="center">Legit Check Feed</h1>
+            <div class="center">
             <button id="postList" v-on:click="populateFeed()">Refresh Feed</button>
+            </div>
 
             <div>
                 <table class="center">
@@ -118,9 +120,10 @@
                 </table>
 
             </div>
-
-            <button id="uploadbutton" v-on:click="uploadPage()"> Upload Photo
-            </button>
+            <div class="center">
+                <button  id="uploadbutton" v-on:click="uploadPage()"> Upload Photo
+                </button>
+            </div>
         </div>
 
         <div id="votingdiv">
