@@ -102,7 +102,9 @@
         <div  v-if="is_on_feed">
             <h1 class="center">Legit Check Feed</h1>
             <div class="center">
-            <button id="postList" v-on:click="populateFeed()">Refresh Feed</button>
+                <button id="postList" v-on:click="populateFeed()">Refresh Feed</button>
+                <button id="rArchive">Real Archive</button>
+                <button id="fArchive">Fake Archive</button>
             </div>
 
             <div>
@@ -113,7 +115,7 @@
                          -->
                         <td >
                             <b>${p.PostTitle}</b>  <br> ${p.Time} <b>Total Votes:</b> ${p.Totalvotes}
-                            <button v-on:click="vote(p.PostTitle, p.Shoename)" >View Picture</button>
+                            <button v-on:click="view(p.PostTitle, p.Shoename)" >View Picture</button>
                             <button v-on:click="realvote(p.Key, p.Legitcount, p.Totalvotes, p.Shoename,
                             p.Photo, p.PostTitle, p.Time, p.Fakecount)">Vote Real</button>
                             <button v-on:click="fakevote(p.Key, p.Fakecount, p.Totalvotes, p.Shoename,
@@ -144,8 +146,6 @@
             <img id="votingImage"  style="width:304px;height:228px;"/>
 
             <div class="center">
-                <button id="realbutton">REAL</button>
-                <button id="fakebutton">FAKE</button> <br>
                 <button id="backbutton" v-on:click="voteToFeed()">Back</button>
             </div>
         </div>

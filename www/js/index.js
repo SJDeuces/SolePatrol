@@ -210,9 +210,10 @@ var app = function() {
 
     };
 
-    // Whatever post is clicked, a vote page with the
-    self.vote = function(title, shoename) {
-        alert("Now voting on a picture of a(n) " + shoename);
+    // Whatever a post's view button is pressed, displayed image assoc.
+    // with it.
+    self.view = function(title, shoename) {
+        alert("Now viewing a picture of a(n) " + shoename + "\nfrom post: " + title);
         //Turn off the feed flag
         self.vue.is_on_feed = false;
 
@@ -228,8 +229,6 @@ var app = function() {
         nameEl.style.display = "block";
         nameEl.innerHTML = shoename;
 
-
-        console.log("The title passed in is " + title);
 
         // Set up the image to be displayed from storage using id passed in.
 
@@ -384,7 +383,7 @@ var app = function() {
         postphoto: self.postphoto,
         verify: self.verify,
         populateFeed: self.populateFeed,
-        vote: self.vote,
+        view: self.view,
         voteToFeed: self.voteToFeed,
         uploadPage: self.uploadPage,
         uploadToFeed: self.uploadToFeed,
