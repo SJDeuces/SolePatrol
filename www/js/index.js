@@ -330,7 +330,7 @@ var app = function() {
 
 
     // In real archive when someone views a shoe photo
-    self.viewRarchive = function (photo, shoename) {
+    self.viewRarchive = function (photo, shoename, realcount, totalcount) {
         //Turns off Real archive listing
         self.vue.is_real_archive = false;
 
@@ -342,10 +342,26 @@ var app = function() {
         nameEl.style.display = "block";
         nameEl.innerHTML = shoename;
 
+        var percentEl = document.getElementById("percentage");
+        percentEl.style.display = "block";
+
+        var percent = (realcount / totalcount) * 100;
+        var percentdisplay = Math.round(percent);
+
+        var percentEl = document.getElementById("percentage");
+        percentEl.style.display = "block";
+        percentEl.innerHTML = percentdisplay + "% voted Real";
+
+        var totalEl = document.getElementById("totalv");
+        totalEl.style.display = "block";
+        totalEl.innerHTML = totalcount + " total votes";
+
+
+
     };
 
     // In fake archive when someone views a shoe photo
-    self.viewFarchive = function (photo, shoename) {
+    self.viewFarchive = function (photo, shoename, fakecount, totalcount) {
         //Turns off Fake archive listing
         self.vue.is_fake_archive = false;
 
@@ -356,6 +372,17 @@ var app = function() {
         var nameEl = document.getElementById("shoeName");
         nameEl.style.display = "block";
         nameEl.innerHTML = shoename;
+
+        var percent = (fakecount / totalcount) * 100;
+        var percentdisplay = Math.round(percent);
+        var percentEl = document.getElementById("percentage");
+        percentEl.style.display = "block";
+        percentEl.innerHTML = percentdisplay + "% voted Fake";
+
+        var totalEl = document.getElementById("totalv");
+        totalEl.style.display = "block";
+        totalEl.innerHTML = totalcount + " total votes";
+
     };
 
     // Goes from specific photo view to main real archive feed
@@ -370,6 +397,11 @@ var app = function() {
         var nameEl = document.getElementById("shoeName");
         nameEl.style.display = "none";
 
+        var percentEl = document.getElementById("percentage");
+        percentEl.style.display = "none";
+
+        var totalEl = document.getElementById("totalv");
+        totalEl.style.display = "none";
     };
 
     // Goes from specific photo view to main fake archive feed
@@ -383,6 +415,12 @@ var app = function() {
         // Hides shoename display
         var nameEl = document.getElementById("shoeName");
         nameEl.style.display = "none";
+
+        var percentEl = document.getElementById("percentage");
+        percentEl.style.display = "none";
+
+        var totalEl = document.getElementById("totalv");
+        totalEl.style.display = "none";
     };
 
 
