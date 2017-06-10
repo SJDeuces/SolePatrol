@@ -279,6 +279,7 @@ var app = function() {
         });
 
         alert("You voted REAL for the post: " + posttitle + "\nfor the shoe: " + shoename);
+        self.populateFeed();
     };
 
     //Increments vote count for fake count when posts button pushed
@@ -300,6 +301,7 @@ var app = function() {
         });
 
         alert("You voted FAKE for the post: " + posttitle + "\nfor the shoe: " + shoename);
+        self.populateFeed();
 
     };
 
@@ -354,7 +356,7 @@ var app = function() {
 
         var totalEl = document.getElementById("totalv");
         totalEl.style.display = "block";
-        totalEl.innerHTML = totalcount + " total votes";
+        totalEl.innerHTML = "out of " +totalcount + " total votes";
 
 
 
@@ -381,7 +383,7 @@ var app = function() {
 
         var totalEl = document.getElementById("totalv");
         totalEl.style.display = "block";
-        totalEl.innerHTML = totalcount + " total votes";
+        totalEl.innerHTML = "out of " + totalcount + " total votes";
 
     };
 
@@ -523,16 +525,19 @@ var app = function() {
             Fakecount: 0,
             Totalvotes: 0
 
-        }).key;
+        });
 
 
         console.log("Added a photo to the Legit Check Feeds!");
+
 
         // Turn off upload flag.
         self.vue.is_uploading = false;
 
         // Turns on feed flag.
         self.vue.is_on_feed = true;
+        self.populateFeed();
+
     };
 
     self.vue = new Vue({
@@ -574,7 +579,6 @@ var app = function() {
         fakevote: self.fakevote,
         success: self.success,
         fail: self.fail
-
         }
 
     });
