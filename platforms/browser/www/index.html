@@ -102,20 +102,21 @@
         <div  v-if="is_on_feed">
             <h1 class="center">Legit Check Feed</h1>
             <div class="center">
-            <button id="postList" v-on:click="populateFeed()">Refresh Feed</button>
+                <button id="postList" v-on:click="populateFeed()">Refresh Feed</button>
+                <button id="rArchive" v-on:click="realArchive()">Real Archive</button>
+                <button id="fArchive" v-on:click="fakeArchive()">Fake Archive</button>
             </div>
 
             <div>
                 <table class="center">
                     <tr v-for="p in posts">
-                        <!-- **Do the code to make clickable div to vote!!!!**
-                         make it like v-onclick="vote( //the photos id)"
-                         -->
                         <td >
-                            <b>${p.PostTitle}</b>  <br> ${p.Atime} ${p.Totalvotes}
-                            <button v-on:click="vote(p.PostTitle, p.Shoename)" >View Picture</button>
-                            <button v-on:click="realvote(p.Time, p.Legitcount, p.Totalvotes)">Vote Real</button>
-                            <button >Vote Fake</button>
+                            <b>${p.PostTitle}</b>  <br> ${p.Time} <b>Total Votes:</b> ${p.Totalvotes}
+                            <button v-on:click="view(p.PostTitle, p.Shoename)" >View Picture</button>
+                            <button v-on:click="realvote(p.Key, p.Legitcount, p.Totalvotes, p.Shoename,
+                            p.Photo, p.PostTitle, p.Time, p.Fakecount)">Vote Real</button>
+                            <button v-on:click="fakevote(p.Key, p.Fakecount, p.Totalvotes, p.Shoename,
+                            p.Photo, p.PostTitle, p.Time, p.Legitcount)" >Vote Fake</button>
 
                         </td>
 
@@ -134,18 +135,61 @@
             <h1 style="display: none;" class="center" id="voteTitle"></h1> <br>
             <b style="display: none;" class="center" id="shoeName"></b>
         </div>
-        <!-- This div is for the voting page display -->
-        <div v-if="is_voting">
+        <!-- This div is for the viewing page display -->
+        <div v-if="is_viewing">
 
-
-
-            <img id="votingImage"  style="width:304px;height:228px;"/>
-
+            <img id="viewImage"  style="width:304px;height:228px;"/>
             <div class="center">
-                <button id="realbutton">REAL</button>
-                <button id="fakebutton">FAKE</button> <br>
-                <button id="backbutton" v-on:click="voteToFeed()">Back</button>
+                <button id="backbutton" v-on:click="viewToFeed()">Back</button>
             </div>
+        </div>
+
+        <!-- This div is for the viewing real archive specific photo-->
+        <div v-if="is_viewing_rarchive">
+            <img id="viewRImage"  style="width:304px;height:228px;"/>
+            <button id="backrbutton" v-on:click="viewtorarchive()">Back</button>
+
+        </div>
+
+        <!-- This div is for the viewing fake archive specific photo-->
+        <div v-if="is_viewing_farchive">
+            <img id="viewFImage"  style="width:304px;height:228px;"/>
+            <button id="backfbutton" v-on:click="viewtofarchive()">Back</button>
+            
+        </div>
+
+        <!--This div is for the real archive list display -->
+        <div v-if="is_real_archive">
+            <h1 class="center">Real Archive</h1>
+            <div>
+                <table class="center">
+                    <tr v-for="p in posts">
+                        <td>
+                            <b>${p.Shoename}</b>
+                            <button v-on:click="viewRarchive(p.Photo, p.Shoename)">View Photo</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <button class="center" v-on:click="rArchivetofeed()">Back To Main Feed</button>
+        </div>
+
+        <!--This div is for the fake archive list display -->
+        <div v-if="is_fake_archive">
+            <h1 class="center">Fake Archive</h1>
+            <div>
+                <table class="center">
+                    <tr v-for="p in posts">
+                        <td>
+                            <b>${p.Shoename}</b>
+                            <button v-on:click="viewFarchive(p.Photo, p.Shoename)">View Photo</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <button class="center" v-on:click="fArchivetofeed()">Back To Main Feed</button>
         </div>
 
 

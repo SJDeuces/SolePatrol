@@ -173,20 +173,47 @@ var app = function() {
         //Clear post dictionary
         self.vue.posts = [];
 
-        dbref.orderByChild("Totalvotes").limitToFirst(10).on("child_added", function (snapshot){
-            //console.log(snapshot.key);
+        //If populating for real archive
+        if(self.vue.is_real_archive){
+            dbref.orderByChild("Totalvotes").limitToLast(50).on("child_added", function (snapshot){
+                var newRdata = snapshot.val();
+                var realpercentage = newRdata["Legitcount"] / newRdata["Totalvotes"];
 
-            var addData = snapshot.val();
+                if(realpercentage > (.5)){
+                    self.vue.posts.push(newRdata);
+                }
 
-            // This adds a field that stores the posts key so your can modify
-            // The specific field later!!!!
-            addData["Key"] = snapshot.key;
+            });
 
-            self.vue.posts.push(addData);
+        }
+        // if its populating for fake archive
+        else if(self.vue.is_fake_archive){
+            dbref.orderByChild("Totalvotes").limitToLast(50).on("child_added", function (snapshot){
+                var newFdata = snapshot.val();
+                var fakepercentage = (newFdata["Fakecount"] / newFdata["Totalvotes"]);
+                if(fakepercentage > (.5)){
+                    self.vue.posts.push(newFdata);
+                }
+
+            });
+
+        }
+        // Then its for main feed
+        else{
+            dbref.orderByChild("Totalvotes").limitToFirst(10).on("child_added", function (snapshot){
+                //console.log(snapshot.key);
+
+                var addData = snapshot.val();
+
+                // This adds a field that stores the posts key so your can modify
+                // The specific field later!!!!
+                addData["Key"] = snapshot.key;
+
+                self.vue.posts.push(addData);
 
 
-        });
-
+            });
+        }
     };
 
     // Switches feed page to upload page
@@ -217,8 +244,8 @@ var app = function() {
         //Turn off the feed flag
         self.vue.is_on_feed = false;
 
-        // Turn on the voting flag
-        self.vue.is_voting = true;
+        // Turn on the viewing flag
+        self.vue.is_viewing = true;
 
         // Make post fields visible!
         var titleEl = document.getElementById("voteTitle");
@@ -276,6 +303,112 @@ var app = function() {
 
     };
 
+    // Turns on real archive listings from button press
+    self.realArchive = function (){
+        // Turns off legit check feed
+        self.vue.is_on_feed = false;
+
+        // Turns on real archive flag
+        self.vue.is_real_archive = true;
+
+        self.populateFeed();
+
+    };
+
+    // Turns on fake archive listings from button press
+    self.fakeArchive = function (){
+        // Turns off legit check feed
+        self.vue.is_on_feed = false;
+
+        // Turns on real archive flag
+        self.vue.is_fake_archive = true;
+
+        self.populateFeed();
+
+    };
+
+
+
+    // In real archive when someone views a shoe photo
+    self.viewRarchive = function (photo, shoename) {
+        //Turns off Real archive listing
+        self.vue.is_real_archive = false;
+
+        //Turns on Real archive viewing specific photo
+        self.vue.is_viewing_rarchive = true;
+
+
+        var nameEl = document.getElementById("shoeName");
+        nameEl.style.display = "block";
+        nameEl.innerHTML = shoename;
+
+    };
+
+    // In fake archive when someone views a shoe photo
+    self.viewFarchive = function (photo, shoename) {
+        //Turns off Fake archive listing
+        self.vue.is_fake_archive = false;
+
+        //Turns on fake archive viewing specifc photo
+        self.vue.is_viewing_farchive = true;
+
+
+        var nameEl = document.getElementById("shoeName");
+        nameEl.style.display = "block";
+        nameEl.innerHTML = shoename;
+    };
+
+    // Goes from specific photo view to main real archive feed
+    self.viewtorarchive = function() {
+        // Turns off viewing real archive flag
+        self.vue.is_viewing_rarchive = false;
+
+        // Turns on real archive feed flag
+        self.vue.is_real_archive = true;
+
+        //Hides shoename display
+        var nameEl = document.getElementById("shoeName");
+        nameEl.style.display = "none";
+
+    };
+
+    // Goes from specific photo view to main fake archive feed
+    self.viewtofarchive = function() {
+        //Turns off viewing fake archive flag
+        self.vue.is_viewing_farchive = false;
+
+        // Tuns on fake archive feed flag
+        self.vue.is_fake_archive = true;
+
+        // Hides shoename display
+        var nameEl = document.getElementById("shoeName");
+        nameEl.style.display = "none";
+    };
+
+
+    // Changes real archive display back to main feed
+    self.rArchivetofeed = function (){
+        // Turns real archive flag off
+        self.vue.is_real_archive = false;
+
+        // Turns on main feed flag on
+        self.vue.is_on_feed = true;
+
+         self.populateFeed();
+
+    };
+
+    // Changes archive display back to main feed
+    self.fArchivetofeed = function (){
+        // Turns fake archive flag off
+        self.vue.is_fake_archive = false;
+
+        // Tuns on main feed flag on
+        self.vue.is_on_feed = true;
+
+         self.populateFeed();
+    };
+
 
 
     self.setvotepage = function(title){
@@ -284,9 +417,9 @@ var app = function() {
     };
 
     //When back button is pressed, goes back to feed
-    self.voteToFeed = function() {
+    self.viewToFeed = function() {
     // Turn off the voting flag
-    self.vue.is_voting = false;
+    self.vue.is_viewing = false;
 
     //Turn on the feed flag
     self.vue.is_on_feed = true;
@@ -372,7 +505,11 @@ var app = function() {
             posts: [],
             is_uploading: false,
             is_on_feed: true,
-            is_voting: false
+            is_viewing: false,
+            is_viewing_rarchive: false,
+            is_viewing_farchive: false,
+            is_real_archive: false,
+            is_fake_archive: false
         },
         methods: {
         setOptions: self.setOptions,
@@ -384,9 +521,17 @@ var app = function() {
         verify: self.verify,
         populateFeed: self.populateFeed,
         view: self.view,
-        voteToFeed: self.voteToFeed,
+        viewToFeed: self.viewToFeed,
         uploadPage: self.uploadPage,
         uploadToFeed: self.uploadToFeed,
+        realArchive: self.realArchive,
+        fakeArchive: self.fakeArchive,
+        viewRarchive: self.viewRarchive,
+        viewFarchive: self.viewFarchive,
+        viewtorarchive: self.viewtorarchive,
+        viewtofarchive: self.viewtofarchive,
+        rArchivetofeed: self.rArchivetofeed,
+        fArchivetofeed: self.fArchivetofeed,
         realvote: self.realvote,
         fakevote: self.fakevote,
         success: self.success,
