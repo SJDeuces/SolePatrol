@@ -352,10 +352,12 @@ var app = function() {
 
         var percentEl = document.getElementById("percentage");
         percentEl.style.display = "block";
+        percentEl.style.color = "green";
         percentEl.innerHTML = percentdisplay + "% voted Real";
 
         var totalEl = document.getElementById("totalv");
         totalEl.style.display = "block";
+        totalEl.style.color = "green";
         totalEl.innerHTML = "out of " +totalcount + " total votes";
 
 
@@ -379,10 +381,12 @@ var app = function() {
         var percentdisplay = Math.round(percent);
         var percentEl = document.getElementById("percentage");
         percentEl.style.display = "block";
+        percentEl.style.color = "red";
         percentEl.innerHTML = percentdisplay + "% voted Fake";
 
         var totalEl = document.getElementById("totalv");
         totalEl.style.display = "block";
+        totalEl.style.color = "red";
         totalEl.innerHTML = "out of " + totalcount + " total votes";
 
     };
