@@ -34,7 +34,7 @@ var app = function() {
         messagingSenderId: "92561983251"
         };
     firebase.initializeApp(config);
-    var dbref = firebase.database().ref();
+    var dbref = firebase.database().ref('posts');
     var storage = firebase.storage().ref('solepatrolapp');
 
     // Extends an array
@@ -115,14 +115,21 @@ var app = function() {
 
             // Do something with the FileEntry object, like write to it, upload it, etc.
             // writeFile(fileEntry, imgUri);
+
             var blob = new Blob([fileEntry],{type:'image/jpg'});
             var url = URL.createObjectURL(blob);
 
 
+
+            var metadata = {
+                contentType: 'image/jpeg',
+
+            };
+
             var picRef = storage.child(fileEntry.fullPath);
             //fileEntry.file(self.success, self.fail);
 
-            picRef.put(blob).then(function(snapshot){
+            picRef.put(blob, metadata).then(function(snapshot){
 
              alert("CONGRATZ U UPLOADED A FILE .... FUCK!");
 
@@ -166,10 +173,15 @@ var app = function() {
         //Clear post dictionary
         self.vue.posts = [];
 
-        dbref.orderByChild("Time").limitToFirst(10).on("child_added", function (snapshot){
+        dbref.orderByChild("Totalvotes").limitToFirst(10).on("child_added", function (snapshot){
             //console.log(snapshot.key);
-            //var addData = JSON.stringify(snapshot.val());
+
             var addData = snapshot.val();
+
+            // This adds a field that stores the posts key so your can modify
+            // The specific field later!!!!
+            addData["Key"] = snapshot.key;
+
             self.vue.posts.push(addData);
 
 
@@ -222,6 +234,50 @@ var app = function() {
         // Set up the image to be displayed from storage using id passed in.
 
     };
+
+    //Increments vote count for real when button pushed
+    self.realvote = function (postkey , realcount, totalvotes, shoename,
+    photo, posttitle, time, fakecount ){
+
+        var newreal = realcount + 1;
+        var newvotes = totalvotes + 1;
+
+        firebase.database().ref('posts/' + postkey).set({
+            Shoename: shoename,
+            Photo: photo,
+            PostTitle: posttitle,
+            Time: time,
+            Legitcount: newreal,
+            Fakecount: fakecount,
+            Totalvotes: newvotes
+        });
+
+        alert("You voted REAL for the post: " + posttitle + "\nfor the shoe: " + shoename);
+    };
+
+    //Increments vote count for fake count when posts button pushed
+    self.fakevote = function (postkey, fakecount, totalvotes, shoename,
+    photo, posttitle, time, realcount ) {
+
+        var newfake = fakecount + 1;
+        var newvotes = totalvotes + 1;
+
+        firebase.database().ref('posts/' + postkey).set({
+            Shoename: shoename,
+            Photo: photo,
+            PostTitle: posttitle,
+            Time: time,
+            Legitcount: realcount,
+            Fakecount: newfake,
+            Totalvotes: newvotes
+
+        });
+
+        alert("You voted FAKE for the post: " + posttitle + "\nfor the shoe: " + shoename);
+
+    };
+
+
 
     self.setvotepage = function(title){
     var titleEl = document.getElementsById("voteTitle");
@@ -283,15 +339,12 @@ var app = function() {
 
         // like 11/16/2015, 11:18:48 PM
         var currenttime = new Date(new Date().getTime()).toLocaleString();
-        //var currenttime = new Date(new Date().getFullYear().toString()).getTime().toLocaleString();
-
-
 
         //Save the id of the image and pass in to Photo field of DB entry
 
 
         //This puts data into firebase DB
-        dbref.push({
+        var newpost = dbref.push({
             Shoename: name,
             Photo: imguri ,
             PostTitle: pTitle,
@@ -300,7 +353,9 @@ var app = function() {
             Fakecount: 0,
             Totalvotes: 0
 
-        });
+        }).key;
+
+
         console.log("Added a photo to the Legit Check Feeds!");
 
         // Turn off upload flag.
@@ -333,6 +388,8 @@ var app = function() {
         voteToFeed: self.voteToFeed,
         uploadPage: self.uploadPage,
         uploadToFeed: self.uploadToFeed,
+        realvote: self.realvote,
+        fakevote: self.fakevote,
         success: self.success,
         fail: self.fail
 

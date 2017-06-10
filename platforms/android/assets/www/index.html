@@ -111,8 +111,14 @@
                         <!-- **Do the code to make clickable div to vote!!!!**
                          make it like v-onclick="vote( //the photos id)"
                          -->
-                        <td v-on:click="vote(p.PostTitle, p.Shoename)">
-                            <b>${p.PostTitle}</b>  <br> ${p.Time}
+                        <td >
+                            <b>${p.PostTitle}</b>  <br> ${p.Time} <b>Total Votes:</b> ${p.Totalvotes}
+                            <button v-on:click="vote(p.PostTitle, p.Shoename)" >View Picture</button>
+                            <button v-on:click="realvote(p.Key, p.Legitcount, p.Totalvotes, p.Shoename,
+                            p.Photo, p.PostTitle, p.Time, p.Fakecount)">Vote Real</button>
+                            <button v-on:click="fakevote(p.Key, p.Fakecount, p.Totalvotes, p.Shoename,
+                            p.Photo, p.PostTitle, p.Time, p.Legitcount)" >Vote Fake</button>
+
                         </td>
 
 
