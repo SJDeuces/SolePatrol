@@ -62,7 +62,7 @@
 
     <div id="vue-div" class="app" style="display:none">
         <!-- This div is for the uploading photo display -->
-        <div v-if="is_uploading">
+        <div class="center" v-if="is_uploading">
             <button id="post" v-on:click="getphoto">Get Photo
             </button>
             <img id="imageFile"  style="width:304px;height:228px;"/>
@@ -102,15 +102,18 @@
         <div  v-if="is_on_feed">
             <h1 class="center">Legit Check Feed</h1>
             <div class="center">
-                <button id="postList" v-on:click="populateFeed()">Refresh Feed</button>
-                <button id="rArchive" v-on:click="realArchive()">Real Archive</button>
-                <button id="fArchive" v-on:click="fakeArchive()">Fake Archive</button>
+                <button id="postList" style="background-color: #008CBA;"
+                        v-on:click="populateFeed()">Refresh Feed</button>
+                <button id="rArchive" style="background-color: #4CAF50;"
+                        v-on:click="realArchive()">Real Archive</button>
+                <button id="fArchive" style="background-color: #f44336;"
+                        v-on:click="fakeArchive()">Fake Archive</button>
             </div>
 
             <div>
                 <table class="center">
                     <tr v-for="p in posts">
-                        <td >
+                        <td class="center">
                             <b>${p.PostTitle}</b>  <br> ${p.Time} <b>Total Votes:</b> ${p.Totalvotes}
                             <button v-on:click="view(p.PostTitle, p.Shoename)" >View Picture</button>
                             <button v-on:click="realvote(p.Key, p.Legitcount, p.Totalvotes, p.Shoename,
@@ -126,31 +129,31 @@
 
             </div>
             <div class="center">
-                <button  id="uploadbutton" v-on:click="uploadPage()"> Upload Photo
+                <button  id="uploadbutton" style="background-color: #008CBA;" v-on:click="uploadPage()"> Upload Photo
                 </button>
             </div>
         </div>
 
         <!-- This is hidden until viewing of specific photos is called upon -->
-        <div id="votingdiv">
+        <div class="center" id="votingdiv">
             <h1 style="display: none;" class="center" id="voteTitle"></h1> <br>
             <b style="display: none;" class="center" id="shoeName"></b>
         </div>
 
         <!-- This div is for the viewing page display -->
-        <div v-if="is_viewing">
+        <div class="center" v-if="is_viewing">
 
             <img id="viewImage"  style="width:304px;height:228px;"/>
-            <div class="center">
-                <button id="backbutton" v-on:click="viewToFeed()">Back</button>
-            </div>
+            <button id="backbutton" v-on:click="viewToFeed()">Back</button>
+
         </div>
 
         <!-- This div is for the viewing real archive specific photo-->
         <div v-if="is_viewing_rarchive">
             <div class="center">
                 <img id="viewRImage"  style="width:304px;height:228px;"/>
-                <button id="backrbutton" v-on:click="viewtorarchive()">Back</button>
+                <button id="backrbutton" style="background-color: #008CBA;"
+                        v-on:click="viewtorarchive()">Back</button>
             </div>
         </div>
 
@@ -159,17 +162,18 @@
 
             <div class="center">
                 <img id="viewFImage"  style="width:304px;height:228px;"/>
-                <button id="backfbutton" v-on:click="viewtofarchive()">Back</button>
+                <button id="backfbutton" style="background-color: #008CBA;"
+                        v-on:click="viewtofarchive()">Back</button>
             </div>
         </div>
 
         <!--This div is for the real archive list display -->
         <div v-if="is_real_archive">
-            <h1 class="center">Real Archive</h1>
+            <h1 style="background-color: #4CAF50;" class="center">Real Archive</h1>
             <div>
                 <table class="center">
                     <tr v-for="p in posts">
-                        <td>
+                        <td class="center">
                             <b>${p.Shoename}</b>
                             <button v-on:click="viewRarchive(p.Photo, p.Shoename, p.Legitcount,
                             p.Totalvotes)">View Photo</button>
@@ -179,17 +183,17 @@
 
             </div>
             <div class="center">
-                <button v-on:click="rArchivetofeed()">Back To Main Feed</button>
+                <button style="background-color: #008CBA;" v-on:click="rArchivetofeed()">Back To Main Feed</button>
             </div>
         </div>
 
         <!--This div is for the fake archive list display -->
         <div v-if="is_fake_archive">
-            <h1 class="center">Fake Archive</h1>
+            <h1 style="background-color: #f44336;" class="center">Fake Archive</h1>
             <div>
                 <table class="center">
                     <tr v-for="p in posts">
-                        <td>
+                        <td class="center">
                             <b>${p.Shoename}</b>
                             <button v-on:click="viewFarchive(p.Photo, p.Shoename, p.Fakecount,
                             p.Totalvotes)">View Photo</button>
@@ -199,7 +203,7 @@
 
             </div>
             <div class="center">
-                <button v-on:click="fArchivetofeed()">Back To Main Feed</button>
+                <button style="background-color: #008CBA;" v-on:click="fArchivetofeed()">Back To Main Feed</button>
             </div>
         </div>
 

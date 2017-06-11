@@ -89,6 +89,20 @@ var app = function() {
         elem.src = imgUri;
     };
 
+    self.win = function(file){
+        var reader = new FileReader();
+        reader.onloadend = function(evt) {
+            alert("read success");
+        };
+        reader.readAsDataURL(file);
+        alert(reader.result);
+
+    };
+
+    self.fail = function(evt) {
+        console.log(error.code);
+    };
+
     self.success = function (file) {
     //console.log("File size: " + file.size);
     var picRef = storage.child(file.name);
@@ -102,38 +116,47 @@ var app = function() {
 
     };
 
-    self.fail = function (error) {
-    alert("Unable to retrieve file properties: " + error.code);
-    };
+    //self.fail = function (error) {
+    //alert("Unable to retrieve file properties: " + error.code);
+    //};
 
 
 
     // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
     // Gets a FileEntry object for the returned picture.
     self.getFileEntry = function (imgUri) {
+
         window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
 
             // Do something with the FileEntry object, like write to it, upload it, etc.
             // writeFile(fileEntry, imgUri);
 
-            var blob = new Blob([fileEntry],{type:'image/jpg'});
-            var url = URL.createObjectURL(blob);
+            //var blob = new Blob([fileEntry],{type:'image/jpg'});
+            //var url = URL.createObjectURL(blob);
 
 
+            message = fileEntry.file(self.win(imgUri), self.fail);
 
-            var metadata = {
-                contentType: 'image/jpeg',
 
-            };
+            //var metadata = {
+            //    contentType: 'image/jpeg',
+
+            //};
+
+
 
             var picRef = storage.child(fileEntry.fullPath);
+            picRef.putString(message, 'base64url').then(function(snapshot) {
+                alert('Uploaded a base64url string!');
+            });
+
             //fileEntry.file(self.success, self.fail);
 
-            picRef.put(blob, metadata).then(function(snapshot){
+            // picRef.put(photofile).then(function(snapshot){
 
-             alert("CONGRATZ U UPLOADED A FILE .... FUCK!");
+            // alert("CONGRATZ U UPLOADED A FILE .... FUCK!");
 
-            });
+            //});
 
 
 
@@ -158,7 +181,6 @@ var app = function() {
         self.getFileEntry(imageUri);
 
         self.displayImage(imageUri);
-        console.log("***THE IMAGEURI IS " + imageUri);
             // Do something
 
         }, function cameraError(error) {
@@ -516,7 +538,7 @@ var app = function() {
         // like 11/16/2015, 11:18:48 PM
         var currenttime = new Date(new Date().getTime()).toLocaleString();
 
-        //Save the id of the image and pass in to Photo field of DB entry
+        //using imageuri, find file entry and convert to base64, then pass in as Photo field.
 
 
         //This puts data into firebase DB
@@ -582,6 +604,7 @@ var app = function() {
         realvote: self.realvote,
         fakevote: self.fakevote,
         success: self.success,
+        win: self.win,
         fail: self.fail
         }
 
