@@ -63,11 +63,12 @@
     <div id="vue-div" class="app" style="display:none">
         <!-- This div is for the uploading photo display -->
         <div class="center" v-if="is_uploading">
+            <h1>Upload Shoe Photo:</h1>
             <button id="post" v-on:click="getphoto">Get Photo
             </button>
             <img id="imageFile"  style="width:304px;height:228px;"/>
 
-            <h1 class="center"> Select shoe name: </h1>
+            <h1 class="center"> Select Shoe Name: </h1>
 
 
             <select id="menu" class="myDropDown" onchange="setName(this.value)">
@@ -94,13 +95,13 @@
             <button id="postbutton" v-on:click="verify(document.getElementById('imageFile').getAttribute('src'),
             document.getElementById('menu').value, document.getElementById('postTitle').value)"> Post photo
             </button>
-            <button id="backtofeed" v-on:click="uploadToFeed()">Back To Feed
+            <button style="background-color: #008CBA;" id="backtofeed" v-on:click="uploadToFeed()">Back To Feed
             </button>
         </div>
 
         <!-- This div is for the feed page display -->
         <div  v-if="is_on_feed">
-            <h1 class="center">Legit Check Feed</h1>
+            <h1 style="color: blue" class="center">Legit Check Feed</h1>
             <div class="center">
                 <button id="postList" style="background-color: #008CBA;"
                         v-on:click="populateFeed()">Refresh Feed</button>
@@ -114,7 +115,7 @@
                 <table class="center">
                     <tr v-for="p in posts">
                         <td class="center">
-                            <b>${p.PostTitle}</b>  <br> ${p.Time} <b>Total Votes:</b> ${p.Totalvotes}
+                            <b style="font-size: 140%">${p.PostTitle}</b>  <br> ${p.Time} <b>Total Votes:</b> ${p.Totalvotes}
                             <button v-on:click="view(p.PostTitle, p.Shoename)" >View Picture</button>
                             <button v-on:click="realvote(p.Key, p.Legitcount, p.Totalvotes, p.Shoename,
                             p.Photo, p.PostTitle, p.Time, p.Fakecount)">Vote Real</button>
@@ -169,7 +170,7 @@
 
         <!--This div is for the real archive list display -->
         <div v-if="is_real_archive">
-            <h1 style="background-color: #4CAF50;" class="center">Real Archive</h1>
+            <h1 style="color: green" class="center">Real Archive</h1>
             <div>
                 <table class="center">
                     <tr v-for="p in posts">
@@ -189,7 +190,7 @@
 
         <!--This div is for the fake archive list display -->
         <div v-if="is_fake_archive">
-            <h1 style="background-color: #f44336;" class="center">Fake Archive</h1>
+            <h1 style="color: red" class="center">Fake Archive</h1>
             <div>
                 <table class="center">
                     <tr v-for="p in posts">
