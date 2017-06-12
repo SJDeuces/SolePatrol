@@ -90,7 +90,7 @@
             </select>
 
             <h1 class="center"> Post Title: </h1>
-            <input type="text" id="postTitle" maxlength="25">
+            <input type="text" id="postTitle" maxlength="45">
 
             <button id="postbutton" v-on:click="verify(document.getElementById('imageFile').getAttribute('src'),
             document.getElementById('menu').value, document.getElementById('postTitle').value)"> Post photo
@@ -139,7 +139,7 @@
         <div class="center" id="votingdiv">
             <h1 style="display: none;" class="center" id="voteTitle"></h1> <br>
             <b style="display: none;" class="center" id="shoeName"></b>
-            <img style="display: none;" id="viewImage"  style="width:304px;height:228px;"/>
+            <img class="center" style="display: none; width:304px;height:228px;" id="viewImage"/>
         </div>
 
 
@@ -155,7 +155,6 @@
         <!-- This div is for the viewing real archive specific photo-->
         <div v-if="is_viewing_rarchive">
             <div class="center">
-                <img id="viewRImage"  style="width:304px;height:228px;"/>
                 <button id="backrbutton" style="background-color: #008CBA;"
                         v-on:click="viewtorarchive()">Back</button>
             </div>
@@ -165,7 +164,6 @@
         <div v-if="is_viewing_farchive">
 
             <div class="center">
-                <img id="viewFImage"  style="width:304px;height:228px;"/>
                 <button id="backfbutton" style="background-color: #008CBA;"
                         v-on:click="viewtofarchive()">Back</button>
             </div>

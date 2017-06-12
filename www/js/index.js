@@ -89,104 +89,6 @@ var app = function() {
         elem.src = imgUri;
     };
 
-    self.win = function(file){
-        var reader = new FileReader();
-        reader.onloadend = function(evt) {
-            alert("read success");
-            //var imgblob = new Blob([evt.target.result],{type:'image/jpg'});
-            //alert(imgblob);
-        };
-        //reader.readAsDataURL(imgblob);
-        //alert(reader.result);
-
-    };
-
-    self.fail = function(evt) {
-        console.log(error.code);
-    };
-
-    self.success = function (file) {
-        //console.log("File size: " + file.size);
-        var picRef = storage.child(file.name);
-        var blob = new Blob([file],{type:'image/jpg'});
-        //var message = URL.createObjectURL(blob);
-
-        var reader = new FileReader();
-        reader.onloadend = function(evt){
-            alert("read success");
-            var imgblob = new Blob([evt.target.result],{type:'image/jpg'});
-            reader.readAsDataURL(imgblob);
-        };
-        //reader.readAsDataURL(imgblob);
-        alert("this is reader result: " +reader.result);
-
-
-
-    //picRef.putString(message, 'base64url').then(function(snapshot) {
-    //    alert('Uploaded a base64url string!');
-   // });
-
-    //picRef.put(blob).then(function(snapshot){
-    //            alert("CONGRATZ U UPLOADED A FILE .... FUCK!");
-   // });
-    };
-
-    self.fail = function (error) {
-    alert("Unable to retrieve file properties: " + error.code);
-    };
-
-
-
-    // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
-    // Gets a FileEntry object for the returned picture.
-    self.getFileEntry = function (imgUri) {
-
-        window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
-            function win(file) {
-                var reader = new FileReader();
-                var picRef = storage.child(file.name);
-
-                reader.onloadend = function (evt) {
-                   var obj = evt.target.result;
-                   picRef.putString(obj, 'base64').then(function(snapshot) {
-                   console.log('Uploaded a base64 string!');
-                   });
-
-                };
-                reader.readAsDataURL(file);
-                //alert("reader result is: " + reader.result);
-             };
-             var fail = function (evt) { };
-            //var blob = new Blob([fileEntry],{type:'image/jpg'});
-            //var message = URL.createObjectURL(blob);
-
-
-           fileEntry.file(win, fail);
-
-
-            //var picRef = storage.child(fileEntry.fullPath);
-            //picRef.putString(message, 'base64url').then(function(snapshot) {
-            //   alert('Uploaded a base64url string!');
-            //});
-
-            //fileEntry.file(self.success, self.fail);
-
-            // picRef.put(photofile).then(function(snapshot){
-
-            // alert("CONGRATZ U UPLOADED A FILE .... FUCK!");
-
-            //});
-
-
-
-             // displayFileData(fileEntry.nativeURL, "Native URL");
-
-        }, function () {
-            // If don't get the FileEntry (which may happen when testing
-            // on some emulators), copy to a new FileEntry.
-            //self.createNewFileEntry(imgUri);
-        });
-    };
 
     // *From cordova.apache.org/docs/en/latest/reference/cordova-plugin-camera/*
     // Testing how access photo album n selecting photo works.
@@ -299,13 +201,7 @@ var app = function() {
 
         var photoEl = document.getElementById("viewImage");
         photoEl.style.display = "block";
-        //var image = new Image();
-        //image.src = photo;
-        //photoEl.src = photo;
         photoEl.setAttribute('src', photo);
-
-
-        // Set up the image to be displayed from storage using id passed in.
 
     };
 
@@ -387,6 +283,10 @@ var app = function() {
         //Turns on Real archive viewing specific photo
         self.vue.is_viewing_rarchive = true;
 
+        var photoEl = document.getElementById("viewImage");
+        photoEl.style.display = "block";
+        photoEl.setAttribute('src', photo);
+
 
         var nameEl = document.getElementById("shoeName");
         nameEl.style.display = "block";
@@ -419,6 +319,10 @@ var app = function() {
 
         //Turns on fake archive viewing specifc photo
         self.vue.is_viewing_farchive = true;
+
+        var photoEl = document.getElementById("viewImage");
+        photoEl.style.display = "block";
+        photoEl.setAttribute('src', photo);
 
 
         var nameEl = document.getElementById("shoeName");
@@ -456,6 +360,9 @@ var app = function() {
 
         var totalEl = document.getElementById("totalv");
         totalEl.style.display = "none";
+
+        var photoEl = document.getElementById("viewImage");
+        photoEl.style.display = "none";
     };
 
     // Goes from specific photo view to main fake archive feed
@@ -475,6 +382,9 @@ var app = function() {
 
         var totalEl = document.getElementById("totalv");
         totalEl.style.display = "none";
+
+        var photoEl = document.getElementById("viewImage");
+        photoEl.style.display = "none";
     };
 
 
@@ -593,7 +503,7 @@ var app = function() {
                  };
                 reader.readAsDataURL(file);
 
-            
+
              };
              var fail = function (evt) { };
 
@@ -639,7 +549,6 @@ var app = function() {
         methods: {
         setOptions: self.setOptions,
         displayImage: self.displayImage,
-        getFileEntry: self.getFileEntry,
         createNewFileEntry: self.createNewFileEntry,
         getphoto: self.getphoto,
         postphoto: self.postphoto,
@@ -659,9 +568,7 @@ var app = function() {
         fArchivetofeed: self.fArchivetofeed,
         realvote: self.realvote,
         fakevote: self.fakevote,
-        success: self.success,
-        win: self.win,
-        fail: self.fail
+        success: self.success
         }
 
     });
