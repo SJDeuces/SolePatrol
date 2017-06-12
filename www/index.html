@@ -116,7 +116,7 @@
                     <tr v-for="p in posts">
                         <td class="center">
                             <b style="font-size: 140%">${p.PostTitle}</b>  <br> ${p.Time} <b>Total Votes:</b> ${p.Totalvotes}
-                            <button v-on:click="view(p.PostTitle, p.Shoename)" >View Picture</button>
+                            <button v-on:click="view(p.PostTitle, p.Shoename, p.Photo)" >View Picture</button>
                             <button v-on:click="realvote(p.Key, p.Legitcount, p.Totalvotes, p.Shoename,
                             p.Photo, p.PostTitle, p.Time, p.Fakecount)">Vote Real</button>
                             <button v-on:click="fakevote(p.Key, p.Fakecount, p.Totalvotes, p.Shoename,
@@ -139,12 +139,15 @@
         <div class="center" id="votingdiv">
             <h1 style="display: none;" class="center" id="voteTitle"></h1> <br>
             <b style="display: none;" class="center" id="shoeName"></b>
+            <img style="display: none;" id="viewImage"  style="width:304px;height:228px;"/>
         </div>
+
+
 
         <!-- This div is for the viewing page display -->
         <div class="center" v-if="is_viewing">
 
-            <img id="viewImage"  style="width:304px;height:228px;"/>
+            <!-- <img id="viewImage"  style="width:304px;height:228px;"/> -->
             <button id="backbutton" v-on:click="viewToFeed()">Back</button>
 
         </div>

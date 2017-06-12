@@ -93,9 +93,11 @@ var app = function() {
         var reader = new FileReader();
         reader.onloadend = function(evt) {
             alert("read success");
+            //var imgblob = new Blob([evt.target.result],{type:'image/jpg'});
+            //alert(imgblob);
         };
-        reader.readAsDataURL(file);
-        alert(reader.result);
+        //reader.readAsDataURL(imgblob);
+        //alert(reader.result);
 
     };
 
@@ -104,21 +106,34 @@ var app = function() {
     };
 
     self.success = function (file) {
-    //console.log("File size: " + file.size);
-    var picRef = storage.child(file.name);
-    //var blob = new Blob([file],{type:'image/jpg'});
-    //var url = URL.createObjectURL(blob);
+        //console.log("File size: " + file.size);
+        var picRef = storage.child(file.name);
+        var blob = new Blob([file],{type:'image/jpg'});
+        //var message = URL.createObjectURL(blob);
+
+        var reader = new FileReader();
+        reader.onloadend = function(evt){
+            alert("read success");
+            var imgblob = new Blob([evt.target.result],{type:'image/jpg'});
+            reader.readAsDataURL(imgblob);
+        };
+        //reader.readAsDataURL(imgblob);
+        alert("this is reader result: " +reader.result);
 
 
-    picRef.put(blob).then(function(snapshot){
-                alert("CONGRATZ U UPLOADED A FILE .... FUCK!");
-    });
 
+    //picRef.putString(message, 'base64url').then(function(snapshot) {
+    //    alert('Uploaded a base64url string!');
+   // });
+
+    //picRef.put(blob).then(function(snapshot){
+    //            alert("CONGRATZ U UPLOADED A FILE .... FUCK!");
+   // });
     };
 
-    //self.fail = function (error) {
-    //alert("Unable to retrieve file properties: " + error.code);
-    //};
+    self.fail = function (error) {
+    alert("Unable to retrieve file properties: " + error.code);
+    };
 
 
 
@@ -127,28 +142,32 @@ var app = function() {
     self.getFileEntry = function (imgUri) {
 
         window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+            function win(file) {
+                var reader = new FileReader();
+                var picRef = storage.child(file.name);
 
-            // Do something with the FileEntry object, like write to it, upload it, etc.
-            // writeFile(fileEntry, imgUri);
+                reader.onloadend = function (evt) {
+                   var obj = evt.target.result;
+                   picRef.putString(obj, 'base64').then(function(snapshot) {
+                   console.log('Uploaded a base64 string!');
+                   });
 
+                };
+                reader.readAsDataURL(file);
+                //alert("reader result is: " + reader.result);
+             };
+             var fail = function (evt) { };
             //var blob = new Blob([fileEntry],{type:'image/jpg'});
-            //var url = URL.createObjectURL(blob);
+            //var message = URL.createObjectURL(blob);
 
 
-            message = fileEntry.file(self.win(imgUri), self.fail);
+           fileEntry.file(win, fail);
 
 
-            //var metadata = {
-            //    contentType: 'image/jpeg',
-
-            //};
-
-
-
-            var picRef = storage.child(fileEntry.fullPath);
-            picRef.putString(message, 'base64url').then(function(snapshot) {
-                alert('Uploaded a base64url string!');
-            });
+            //var picRef = storage.child(fileEntry.fullPath);
+            //picRef.putString(message, 'base64url').then(function(snapshot) {
+            //   alert('Uploaded a base64url string!');
+            //});
 
             //fileEntry.file(self.success, self.fail);
 
@@ -178,7 +197,7 @@ var app = function() {
         //When picked image, do this
         navigator.camera.getPicture(function cameraSuccess(imageUri) {
 
-        self.getFileEntry(imageUri);
+        //self.getFileEntry(imageUri);
 
         self.displayImage(imageUri);
             // Do something
@@ -261,7 +280,7 @@ var app = function() {
 
     // Whatever a post's view button is pressed, displayed image assoc.
     // with it.
-    self.view = function(title, shoename) {
+    self.view = function(title, shoename, photo) {
         alert("Now viewing a picture of a(n) " + shoename + "\nfrom post: " + title);
         //Turn off the feed flag
         self.vue.is_on_feed = false;
@@ -277,6 +296,13 @@ var app = function() {
         var nameEl = document.getElementById("shoeName");
         nameEl.style.display = "block";
         nameEl.innerHTML = shoename;
+
+        var photoEl = document.getElementById("viewImage");
+        photoEl.style.display = "block";
+        //var image = new Image();
+        //image.src = photo;
+        //photoEl.src = photo;
+        photoEl.setAttribute('src', photo);
 
 
         // Set up the image to be displayed from storage using id passed in.
@@ -497,6 +523,8 @@ var app = function() {
     var nameEl = document.getElementById("shoeName");
         nameEl.style.display = "none";
 
+     var photoEl = document.getElementById("viewImage");
+        photoEl.style.display = "none";
 
 
     };
@@ -538,20 +566,48 @@ var app = function() {
         // like 11/16/2015, 11:18:48 PM
         var currenttime = new Date(new Date().getTime()).toLocaleString();
 
+
         //using imageuri, find file entry and convert to base64, then pass in as Photo field.
+        window.resolveLocalFileSystemURL(imguri, function success(fileEntry) {
+            function win(file) {
+                var reader = new FileReader();
+                var picRef = storage.child(file.name);
+
+                reader.onloadend = function (evt) {
+                   var photodata = evt.target.result;
 
 
-        //This puts data into firebase DB
-        var newpost = dbref.push({
-            Shoename: name,
-            Photo: imguri ,
-            PostTitle: pTitle,
-            Time: currenttime,
-            Legitcount: 0,
-            Fakecount: 0,
-            Totalvotes: 0
+                    //This puts data into firebase DB
+                    var newpost = dbref.push({
+                        Shoename: name,
+                        Photo: photodata,
+                        PostTitle: pTitle,
+                        Time: currenttime,
+                        Legitcount: 0,
+                        Fakecount: 0,
+                        Totalvotes: 0
 
+                    });
+
+
+
+                 };
+                reader.readAsDataURL(file);
+
+                //alert("reader result is: " + reader.result);
+             };
+             var fail = function (evt) { };
+
+           var photo = fileEntry.file(win, fail);
+
+             // displayFileData(fileEntry.nativeURL, "Native URL");
+
+        }, function () {
+            // If don't get the FileEntry (which may happen when testing
+            // on some emulators), copy to a new FileEntry.
+            //self.createNewFileEntry(imgUri);
         });
+
 
 
         console.log("Added a photo to the Legit Check Feeds!");
@@ -572,6 +628,7 @@ var app = function() {
         unsafeDelimiters: ['!{', '}'],
         data: {
             posts: [],
+            imgblob: null,
             is_uploading: false,
             is_on_feed: true,
             is_viewing: false,
