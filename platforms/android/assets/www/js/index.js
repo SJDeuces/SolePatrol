@@ -118,7 +118,7 @@ var app = function() {
 
         //If populating for real archive
         if(self.vue.is_real_archive){
-            dbref.orderByChild("Totalvotes").limitToLast(50).on("child_added", function (snapshot){
+            dbref.orderByChild("Totalvotes").limitToFirst(50).on("child_added", function (snapshot){
                 var newRdata = snapshot.val();
                 var realpercentage = newRdata["Legitcount"] / newRdata["Totalvotes"];
 
@@ -131,7 +131,7 @@ var app = function() {
         }
         // if its populating for fake archive
         else if(self.vue.is_fake_archive){
-            dbref.orderByChild("Totalvotes").limitToLast(50).on("child_added", function (snapshot){
+            dbref.orderByChild("Totalvotes").limitToFirst(50).on("child_added", function (snapshot){
                 var newFdata = snapshot.val();
                 var fakepercentage = (newFdata["Fakecount"] / newFdata["Totalvotes"]);
                 if(fakepercentage > (.5)){
@@ -177,6 +177,7 @@ var app = function() {
 
         // Turns on feed flag
         self.vue.is_on_feed = true;
+
 
     };
 
